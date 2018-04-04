@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">test_real_time</string>
+    <string name="signin_other_error">Nothing returned</string>
+</resources>
