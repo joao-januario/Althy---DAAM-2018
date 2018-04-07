@@ -1,156 +1,161 @@
 package inducesmile.com.test_real_time;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.games.Games;
-import com.google.android.gms.games.GamesActivityResultCodes;
-import com.google.android.gms.games.GamesCallbackStatusCodes;
-import com.google.android.gms.games.GamesClient;
-import com.google.android.gms.games.GamesClientStatusCodes;
-import com.google.android.gms.games.InvitationsClient;
-import com.google.android.gms.games.Player;
-import com.google.android.gms.games.PlayersClient;
-import com.google.android.gms.games.RealTimeMultiplayerClient;
-import com.google.android.gms.games.multiplayer.Invitation;
-import com.google.android.gms.games.multiplayer.InvitationCallback;
-import com.google.android.gms.games.multiplayer.Multiplayer;
-import com.google.android.gms.games.multiplayer.Participant;
-import com.google.android.gms.games.multiplayer.realtime.OnRealTimeMessageReceivedListener;
-import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
-import com.google.android.gms.games.multiplayer.realtime.Room;
-import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
-import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateCallback;
-import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import inducesmile.com.test_real_time.MenuActivity;
+import inducesmile.com.test_real_time.R;
 
 public class MainMultiplayerActivity extends AppCompatActivity {
-    private static final int RC_SELECT_PLAYERS = 10;
 
-    private GoogleSignInClient mGoogleSignInClient = null;
-    private static final int RC_SIGN_IN = 901;
+    private static final String TAG = "100";
+    private static final int RC_SIGN_IN = 10;
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
     private SignInButton sib;
-    GoogleSignInAccount signedInAccount;
+    private GoogleApiClient mGoogleApiClient;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sib = findViewById(R.id.sign_in_button);
+        mAuth = FirebaseAuth.getInstance();
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//lol
+
+        // [START build_client]
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                /*.enableAutoManage(this,this)*/
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        // [END build_client]
+
+        sib = (SignInButton) findViewById(R.id.sign_in_button);
         sib.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.sign_in_button:
-                        startSignInIntent();
+                        signIn();
                         break;
                     // ...
                 }
 
             }
         });
+    }
 
-        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-            signInSilently();
-        }else{
-            //startSignInIntent();
+
+    // Check if user is signed in (non-null) and update UI accordingly.
+    //FirebaseUser currentUser = mAuth.getCurrentUser();
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        if (opr.isDone()) {
+            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+            // and the GoogleSignInResult will be available instantly.
+            Log.d(TAG, "Got cached sign-in");
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            // If the user has not previously signed in on this device or the sign-in has expired,
+            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+            // single sign-on will occur in this branch.
+            //////showProgressDialog();
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(GoogleSignInResult googleSignInResult) {
+                    //////hideProgressDialog();
+                    handleSignInResult(googleSignInResult);
+                }
+            });
         }
-
-        signOut();
-        //startSignInIntent();
-
     }
 
-    private void startSignInIntent() {
-        mGoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
-        Intent intent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(intent, RC_SIGN_IN);
 
-    }
+
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                // The signed in account is stored in the result.
-                 signedInAccount = result.getSignInAccount();
-            } else {
-                String message = result.getStatus().getStatusMessage();
-                if (message == null || message.isEmpty()) {
-                    message = getString(R.string.signin_other_error);
-                }
-                new AlertDialog.Builder(this).setMessage(message)
-                        .setNeutralButton(android.R.string.ok, null).show();
-            }
+            handleSignInResult(result);
         }
     }
 
-    private void signOut() {
-        GoogleSignInClient signInClient = GoogleSignIn.getClient(this,
-                GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
-        signInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // at this point, the user is signed out.
-                    }
-                });
-    }
 
-    private void signInSilently() {
-        GoogleSignInClient signInClient = GoogleSignIn.getClient(this,
-                GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
-        signInClient.silentSignIn().addOnCompleteListener(this,
-                new OnCompleteListener<GoogleSignInAccount>() {
-                    @Override
-                    public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
-                        if (task.isSuccessful()) {
-                            // The signed in account is stored in the task's result.
-                            signedInAccount = task.getResult();
-                        } else {
-                            // Player will need to sign-in explicitly using via UI
-                        }
-                    }
-                });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        signInSilently();
+
+    //@Override
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            updateUI(true);
+
+            Intent myIntent = new Intent(MainMultiplayerActivity.this, MenuActivity.class);
+            startActivity(myIntent);
+            finish();
+        } else {
+            // Signed out, show unauthenticated UI.
+            updateUI(false);
+        }
     }
 
 
-    private void invitePlayers() {
-        int min_other_player = 1;
-        int max_players = 8;
-        Games.getRealTimeMultiplayerClient(this,signedInAccount)
-                .getSelectOpponentsIntent(min_other_player, max_players, true)
-                .addOnSuccessListener(new OnSuccessListener<Intent>() {
-                    @Override
-                    public void onSuccess(Intent intent) {
-                        startActivityForResult(intent, RC_SELECT_PLAYERS);
-                    }
-                });
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
+    private void updateUI(boolean b) {
+    }
+
+
+
+
+
+
+
 
 }
