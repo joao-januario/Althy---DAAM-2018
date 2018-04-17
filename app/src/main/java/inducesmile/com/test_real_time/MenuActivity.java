@@ -11,16 +11,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.games.Games;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 public class MenuActivity extends AppCompatActivity {
 
-    public Button account_btn;
-    public Button join_btn;
-    public Button createSession_btn;
+
+    public Button multi_btn;
+    public Button solo_btn;
+    public Button random_btn;
     public Button help_btn;
     GoogleSignInAccount signedInAccount;
 
@@ -32,11 +31,14 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         signedInAccount =(GoogleSignInAccount) getIntent().getSerializableExtra("GoogleSignInAccount");
 
-        join_btn =  findViewById(R.id.join_btn);
+        multi_btn =  findViewById(R.id.btn_Multi);
+        solo_btn =  findViewById(R.id.btn_solo);
+        random_btn =  findViewById(R.id.btn_random);
 
-        join_btn.setOnClickListener(new View.OnClickListener() {
+
+        solo_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, JoinSessionActivity.class));
+                startActivity(new Intent(MenuActivity.this, ChooseCatg.class));
 
             }
         });
@@ -57,15 +59,20 @@ public class MenuActivity extends AppCompatActivity {
                             menu.putExtra("GoogleSignInAccount",signedInAccount);
                             startActivity(menu);
                             finish();
+
                         }
                     }
                 });
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
-        signInSilently();
+
+        //if(signedInAccount==null)
+           // signInSilently();
     }
 
 

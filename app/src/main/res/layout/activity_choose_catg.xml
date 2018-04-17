@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bckgrd"
+    tools:context=".ChooseCatg">
+
+    <ToggleButton
+        android:id="@+id/btn_classicQuizz"
+        style="@style/ButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:drawableTop="@drawable/quizz_1"
+        android:text="Quizz Clássico"
+        android:textOff="Quizz Clássico"
+        android:textOn="Quizz Clássico"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ToggleButton
+        android:id="@+id/btn_closerWins"
+        style="@style/ButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:drawableTop="@drawable/closer_wins_1"
+        android:text="Mais Perto Ganha"
+        android:textOff="Mais Perto Ganha"
+        android:textOn="Mais Perto Ganha"
+        app:layout_constraintBottom_toTopOf="@+id/btn_classicQuizz"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/btn_increaseRound"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        tools:layout_editor_absoluteY="284dp" />
+
+    <Button
+        android:id="@+id/btn_decreaseRound"
+        style="@style/ButtonStyle"
+        android:layout_width="121dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:drawableTop="@drawable/decrease_ic"
+        android:padding="-90dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_increaseRound"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="263dp" />
+
+    <Button
+        android:id="@+id/btn_increaseRound"
+        style="@style/ButtonStyle"
+        android:layout_width="121dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="8dp"
+        android:drawableTop="@drawable/increase_ic"
+        android:padding="-90dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/btn_classicQuizz"
+        tools:layout_editor_absoluteX="263dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_classicQuizz"
+        app:layout_constraintVertical_bias="0.0"
+        />
+</android.support.constraint.ConstraintLayout>
