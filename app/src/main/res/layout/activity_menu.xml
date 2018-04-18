@@ -4,69 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_w_shadows"
     tools:context=".MenuActivity"
     tools:layout_editor_absoluteY="81dp">
 
+
     <Button
-        android:id="@+id/join_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="49dp"
+        android:id="@+id/btn_Multi"
+        style="@style/ButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="junta-te a uma sala para jogar ao jogo"
-        app:layout_constraintBottom_toTopOf="@+id/createSession_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.731" />
+        android:layout_weight="4"
+        android:drawableTop="@drawable/multi_1"
+        android:text="Jogar com Amigos"
+        android:typeface="normal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_random"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/createSession_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Cria uma sala para outras pessoas se juntarem"
-        app:layout_constraintBottom_toTopOf="@+id/help_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:id="@+id/btn_random"
+        style="@style/ButtonStyle"
+        android:layout_height="100dp"
+        android:layout_marginBottom="104dp"
+        android:drawableTop="@drawable/random_1"
+        android:text="Adversários Aleatórios"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="8dp" />
 
     <Button
-        android:id="@+id/help_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="140dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Ajuda"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/account_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.974"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/btn_solo"
+        style="@style/ButtonStyle"
+        android:layout_height="100dp"
+        android:drawableTop="@drawable/solo_1"
+        android:text="Um Jogador"
+        android:typeface="normal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Multi"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.018"
-        app:srcCompat="@android:drawable/ic_menu_myplaces" />
+        app:layout_constraintVertical_bias="0.914"
+        tools:layout_editor_absoluteX="8dp" />
+
 </android.support.constraint.ConstraintLayout>
