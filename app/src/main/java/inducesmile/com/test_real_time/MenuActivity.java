@@ -30,7 +30,7 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        signedInAccount =(GoogleSignInAccount) getIntent().getSerializableExtra("GoogleSignInAccount");
+        signedInAccount =(GoogleSignInAccount) getIntent().getParcelableExtra("GoogleSignInAccount");
 
         join_btn =  findViewById(R.id.join_btn);
 
@@ -53,10 +53,6 @@ public class MenuActivity extends AppCompatActivity {
                             // The signed in account is stored in the task's result.
                             signedInAccount = task.getResult();
                         } else {
-                            Intent menu = new Intent(MenuActivity.this,MultiplayerGoogleLoginActivity.class);
-                            menu.putExtra("GoogleSignInAccount",signedInAccount);
-                            startActivity(menu);
-                            finish();
                         }
                     }
                 });

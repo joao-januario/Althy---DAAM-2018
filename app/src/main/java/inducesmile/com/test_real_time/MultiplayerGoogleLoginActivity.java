@@ -35,10 +35,6 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
 
         if (isSignedIn()){
             signInSilently();
-            Intent menu = new Intent(MultiplayerGoogleLoginActivity.this,MenuActivity.class);
-            menu.putExtra("GoogleSignInAccount",signedInAccount);
-            startActivity(menu);
-            finish();
         }
 
         sib.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +48,6 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private boolean isSignedIn() {
@@ -94,8 +89,13 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // The signed in account is stored in the task's result.
                             signedInAccount = task.getResult();
+                            Intent menu = new Intent(MultiplayerGoogleLoginActivity.this,MenuActivity.class);
+                            menu.putExtra("GoogleSignInAccount",signedInAccount);
+                            startActivity(menu);
+                            finish();
                         } else {
-                            startSignInIntent();
+                            task.getException();
+                            //startSignInIntent();
                         }
                     }
                 });
