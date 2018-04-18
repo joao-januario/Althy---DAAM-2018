@@ -9,16 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MultiplayerGoogleLoginActivity">
+        <activity android:name=".Multiplayer.MultiplayerGoogleLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".JoinSessionActivity" />
-        <activity android:name=".Question_Activity" />
+        <activity android:name=".AppNav.MenuActivity" />
+        <activity android:name=".Game.JoinSessionActivity" />
+        <activity android:name=".Game.Question_Activity" />
 
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"
@@ -27,7 +27,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ChooseCatg"></activity>
+        <activity android:name=".AppNav.ChooseCatg"></activity>
     </application>
 
 </manifest>
