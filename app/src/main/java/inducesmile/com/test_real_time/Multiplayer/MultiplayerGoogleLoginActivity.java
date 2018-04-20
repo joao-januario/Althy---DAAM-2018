@@ -18,12 +18,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import inducesmile.com.test_real_time.AppNav.MenuActivity;
+import inducesmile.com.test_real_time.Helper.MultiplayerLogin;
 import inducesmile.com.test_real_time.R;
 
 
 public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
     private static final int RC_SELECT_PLAYERS = 10;
-
+    private MultiplayerLogin login = MultiplayerLogin.getInstance();
     private GoogleSignInClient signInClient;
     private static final int RC_SIGN_IN = 901;
     private SignInButton sib;
@@ -36,6 +37,7 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
 
         if (isSignedIn()){
             signInSilently();
+
         }
 
         sib.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +70,9 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 // The signed in account is stored in the result.
-                signedInAccount = result.getSignInAccount();
+                login.setSignInAccount(result.getSignInAccount());
+                switchToMenuActivity();
+
             } else {
                 String message = result.getStatus().getStatusMessage();
                 if (message == null || message.isEmpty()) {
@@ -89,14 +93,11 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
                         if (task.isSuccessful()) {
                             // The signed in account is stored in the task's result.
-                            signedInAccount = task.getResult();
-                            Intent menu = new Intent(MultiplayerGoogleLoginActivity.this,MenuActivity.class);
-                            menu.putExtra("GoogleSignInAccount",signedInAccount);
-                            startActivity(menu);
-                            finish();
+                            login.setSignInAccount(task.getResult());
+                            switchToMenuActivity();
+
                         } else {
                             task.getException();
-                            //startSignInIntent();
                         }
                     }
                 });
@@ -106,6 +107,12 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         signInSilently();
+    }
+
+    private void switchToMenuActivity(){
+        Intent menu = new Intent(MultiplayerGoogleLoginActivity.this,MenuActivity.class);
+        startActivity(menu);
+        finish();
     }
 
 
