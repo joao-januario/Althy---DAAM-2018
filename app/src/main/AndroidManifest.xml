@@ -29,6 +29,7 @@
 
         <activity android:name=".AppNav.ChooseCatg" />
         <activity android:name=".Game.TestGameActivity" />
+        <activity android:name=".Multiplayer.RandomPlayActivty" />
         <activity android:name=".Multiplayer.RandomPlayActivity"></activity>
     </application>
 
