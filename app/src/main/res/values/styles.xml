@@ -18,6 +18,15 @@
         <item name="android:hapticFeedbackEnabled">true</item>
     </style>
 
+    <style name="ToggleButtonStyle" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:hapticFeedbackEnabled">true</item>
+    </style>
+
     <style name="OtherButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:textColor">#ffffff</item>

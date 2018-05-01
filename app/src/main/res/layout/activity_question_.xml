@@ -9,52 +9,102 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/question_textView"
-        android:layout_width="372dp"
+        android:id="@+id/question_tv"
+        android:layout_width="0dp"
         android:layout_height="171dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/border_style"
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:text="LOL LOLOLOLOOL"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="54dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/ok_btn"
         style="@style/ButtonStyle"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="OK"
-        tools:layout_editor_absoluteX="228dp"
-        tools:layout_editor_absoluteY="231dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/answer_tv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.473" />
 
     <TextView
         android:id="@+id/round_tv"
         android:layout_width="78dp"
         android:layout_height="42dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border_style"
         android:text="TextView"
-        tools:layout_editor_absoluteX="300dp"
-        tools:layout_editor_absoluteY="5dp"
-        android:background="@drawable/border_style"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/timer_tv"
         android:layout_width="76dp"
         android:layout_height="42dp"
-        android:text="TextView"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="217dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="217dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/border_style"
-        tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="5dp" />
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/round_tv"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/answer_tv"
         android:layout_width="215dp"
         android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/border_style"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="231dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.473" />
 
 </android.support.constraint.ConstraintLayout>
