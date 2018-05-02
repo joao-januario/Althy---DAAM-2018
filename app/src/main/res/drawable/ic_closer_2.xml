@@ -1,0 +1,19 @@
+<vector android:height="55dp" android:viewportHeight="264.58334"
+    android:viewportWidth="264.58334" android:width="55dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#ffffff"
+        android:pathData="M65.087,63.5A50.271,50.271 0,0 0,14.817 113.771A50.271,50.271 0,0 0,65.087 164.042A50.271,50.271 0,0 0,115.358 113.771A50.271,50.271 0,0 0,65.087 63.5zM65.087,84.667A29.104,29.104 0,0 1,94.192 113.771A29.104,29.104 0,0 1,65.087 142.875A29.104,29.104 0,0 1,35.983 113.771A29.104,29.104 0,0 1,65.087 84.667z"
+        android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="13.30599976"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="M15.875,111.125L63.5,238.125L116.417,111.125L94.047,111.125A29.104,29.104 107.624,0 1,94.192 113.771A29.104,29.104 0,0 1,65.087 142.875A29.104,29.104 0,0 1,35.983 113.771A29.104,29.104 107.624,0 1,36.116 111.125L15.875,111.125z"
+        android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="13.89766312"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="M63.5,238.125 L211.667,148.167"
+        android:strokeAlpha="1" android:strokeColor="#fffff0"
+        android:strokeLineCap="butt" android:strokeLineJoin="miter" android:strokeWidth="4.3656248"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m194.993,57.246a28.944,28.944 0,0 0,-28.944 28.944,28.944 28.944,0 0,0 28.944,28.944 28.944,28.944 0,0 0,28.944 -28.944,28.944 28.944,0 0,0 -28.944,-28.944zM194.993,69.433a16.757,16.757 0,0 1,16.757 16.757,16.757 16.757,0 0,1 -16.757,16.757 16.757,16.757 0,0 1,-16.757 -16.757,16.757 16.757,0 0,1 16.757,-16.757z"
+        android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="2.02698088"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m166.658,84.667 l27.42,73.121 30.467,-73.121h-12.879a16.757,16.757 0,0 1,0.083 1.523,16.757 16.757,0 0,1 -16.757,16.757 16.757,16.757 0,0 1,-16.757 -16.757,16.757 16.757,0 0,1 0.076,-1.523z"
+        android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="2.1171124"/>
+</vector>

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -13,12 +13,19 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">10dp</item>
-        <item name="android:background">#cfff003c</item>
+        <item name="android:background">#dcff003c</item>
         <item name="android:gravity">center</item>
         <item name="android:hapticFeedbackEnabled">true</item>
+    </style>
 
-
-
+    <style name="OtherButtonStyle" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">#d61567f5</item>
+        <item name="android:gravity">center</item>
+        <item name="android:hapticFeedbackEnabled">true</item>
     </style>
 
 </resources>
