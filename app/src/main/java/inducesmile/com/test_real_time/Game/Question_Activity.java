@@ -25,12 +25,12 @@ public class Question_Activity extends AppCompatActivity {
     private TextView textV_question;
     private TextView textV_answer;
     QuestionsHandler handler = QuestionsHandler.getInstance();
-    final int score_modifier=10;
+    final int score_modifier=9;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_);
-        textV_question=findViewById(R.id.question_textView);
+        textV_question=findViewById(R.id.question_tv);
         textV_answer=findViewById(R.id.answer_tv);
 
         textV_question.setText(handler.getCurrentQuestionText());
