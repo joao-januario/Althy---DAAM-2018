@@ -58,7 +58,7 @@ public class ChooseCatg extends AppCompatActivity {
     }
     private void decreaseRounds() {
         rounds_count--;
-        rounds_tv.setText("0"+rounds_count+"");
+        rounds_tv.setText(""+rounds_count+"");
     }
 
     public void startPlaying(View v){
