@@ -1,5 +1,6 @@
 package inducesmile.com.test_real_time.AppNav;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.ToggleButton;
 import android.widget.TextView;
 
+import inducesmile.com.test_real_time.Helper.LoadingScreenSingleplayerActivity;
 import inducesmile.com.test_real_time.R;
 
 public class ChooseCatg extends AppCompatActivity {
@@ -59,5 +61,11 @@ public class ChooseCatg extends AppCompatActivity {
         rounds_tv.setText("0"+rounds_count+"");
     }
 
+    public void startPlaying(View v){
+        Intent intent = new Intent(this, LoadingScreenSingleplayerActivity.class);
+        intent.putExtra("numberOfQuestions",rounds_count);
+        startActivity(intent);
+        finish();
+    }
 
 }

@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="inducesmile.com.test_real_time.Helper.LoadingScreenSingleplayerActivity">
 
+    <TextView
+        android:id="@+id/loadingQuestions_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loading your questions"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="158dp" />
 </android.support.constraint.ConstraintLayout>
