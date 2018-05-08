@@ -11,11 +11,14 @@
     <style name="ButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:padding">10dp</item>
-        <item name="android:background">#dcff003c</item>
+        <item name="android:background">@drawable/button_bckg_red_round</item>
         <item name="android:gravity">center</item>
         <item name="android:hapticFeedbackEnabled">true</item>
+        <item name="app:fontFamily">@font/annie_use_your_telescope</item>
+        <item name="android:fontFamily">@font/annie_use_your_telescope</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="ToggleButtonStyle" parent="@android:style/Widget.Button">
@@ -25,6 +28,7 @@
         <item name="android:padding">10dp</item>
         <item name="android:gravity">center</item>
         <item name="android:hapticFeedbackEnabled">true</item>
+
     </style>
 
     <style name="OtherButtonStyle" parent="@android:style/Widget.Button">
@@ -32,9 +36,10 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">10dp</item>
-        <item name="android:background">#d61567f5</item>
+        <item name="android:background">@drawable/button_bckg_blue_round</item>
         <item name="android:gravity">center</item>
         <item name="android:hapticFeedbackEnabled">true</item>
+
     </style>
 
 </resources>
