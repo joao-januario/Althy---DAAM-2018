@@ -1,10 +1,13 @@
 package inducesmile.com.test_real_time.Game;
 
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -48,16 +51,19 @@ public class Question_Activity extends AppCompatActivity {
 
 
 
-    private void confirmAnswer(){
+    public void confirmAnswer(View v){
         int correct_answer = handler.getCurrentQuestionAnswer();
         TextView user_answer_text = findViewById(R.id.answer_tv);
         String user_answer_string = user_answer_text.getText().toString();
         int user_answer = Integer.parseInt(user_answer_string);
         int question_score = calculateScore(correct_answer,user_answer);
         handler.nextQuestion();
-
-
-
+        Intent intent = new Intent(this,ScoreActivity.class);
+        intent.putExtra("user_answer",user_answer);
+        intent.putExtra("correct_answer",correct_answer);
+        intent.putExtra("question_score",question_score);
+        startActivity(intent);
+        finish();
 
 
     }
@@ -68,9 +74,11 @@ public class Question_Activity extends AppCompatActivity {
         }
         else{
             if (correct_answer/user_answer<1){
-                return (correct_answer/user_answer)*score_modifier;
+                double i = (double) correct_answer/(double ) user_answer;
+                return (int) Math.round(i *score_modifier);
             }else{
-                return score_modifier/(correct_answer/user_answer);
+                double i = (double) correct_answer/(double)user_answer;
+                return (int) Math.round((double) score_modifier/(double) i);
             }
 
         }
