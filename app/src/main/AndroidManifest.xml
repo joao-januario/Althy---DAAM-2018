@@ -31,7 +31,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".AppNav.ChooseCatg" />
-        <activity android:name=".Game.TestGameActivity" />
+        <activity android:name=".Multiplayer.LoadingScreenMultiplayerActivity" />
         <activity android:name=".Multiplayer.RandomPlayActivity" />
         <activity android:name=".Helper.LoadingScreenSingleplayerActivity" />
         <activity android:name=".Game.ScoreActivity"></activity>
