@@ -38,6 +38,7 @@
         android:layout_marginTop="8dp"
         android:onClick="confirmAnswer"
         android:text="OK"
+        android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

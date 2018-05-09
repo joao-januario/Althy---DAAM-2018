@@ -11,7 +11,7 @@
 
     <ToggleButton
         android:id="@+id/btn_classicQuizz"
-        style="@style/ButtonStyle"
+        style="@style/ToggleButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
@@ -23,10 +23,11 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/toggle_selector"
         android:drawableTop="@drawable/ic_quiz_2"
+        android:fontFamily="@font/annie_use_your_telescope"
         android:state_checked="true"
-        android:text="Quizz Clássico"
-        android:textOff="Quizz Clássico"
-        android:textOn="Quizz Clássico"
+        android:textOff="  "
+        android:textOn="  "
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
@@ -45,25 +46,26 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:drawableTop="@drawable/ic_closer_1"
-        android:text="Mais Perto Ganha"
-        android:textOff="Mais Perto Ganha"
-        android:textOn="Mais Perto Ganha"
-        android:state_checked="true"
         android:background="@drawable/toggle_selector"
+        android:drawableTop="@drawable/ic_closer_1"
+        android:state_checked="true"
+        android:text=" "
+        android:textOff=" "
+        android:textOn=" "
         app:layout_constraintBottom_toTopOf="@+id/btn_classicQuizz"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.657" />
 
     <TextView
         android:id="@+id/rounds_count_tv"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="81dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="9dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="9dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/border_style"
@@ -74,26 +76,26 @@
         android:text="1"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textSize="66dp"
+        android:textSize="40dp"
         android:typeface="normal"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_middle"
+        app:layout_constraintHorizontal_bias="0.967"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.811" />
+        app:layout_constraintVertical_bias="0.804" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9791667" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <TextView
         android:id="@+id/rounds_tv"
-        android:layout_width="132dp"
+        android:layout_width="106dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -110,23 +112,23 @@
         android:text="Rondas"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#c70b37"
-        android:textSize="48sp"
+        android:textColor="#ffffff"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintVertical_bias="0.639" />
 
     <Button
         android:id="@+id/btn_increaseRound"
         style="@style/ButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="82dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -134,21 +136,20 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:drawableTop="@drawable/increase_ic"
+        android:gravity="center"
         android:padding="-90dp"
         android:scaleY="0.7"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_middle2"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_middle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.716" />
+        app:layout_constraintVertical_bias="0.743" />
 
     <Button
         android:id="@+id/btn_decreaseRound"
         style="@style/ButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="77dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -159,8 +160,7 @@
         android:gravity="bottom"
         android:scaleY="0.7"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_middle2"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_middle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.842" />
@@ -171,7 +171,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_end="142dp"
+        app:layout_constraintGuide_end="192dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_middle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_end="105dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -184,10 +194,11 @@
         android:layout_margin="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:onClick="startPlaying"
         android:text="JOGAR"
-        android:textSize="30sp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -201,7 +212,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="8dp" />
+        app:layout_constraintGuide_begin="39dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -213,21 +224,24 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/annie_use_your_telescope"
         android:gravity="center"
-        android:text="Escolha o tipo de perguntas !"
+        android:text="Modo de Jogo"
         android:textAllCaps="false"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/playButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/check_Closer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="84dp"
+        android:layout_height="33dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -236,12 +250,56 @@
         android:layout_marginTop="8dp"
         android:elevation="12dp"
         android:src="@drawable/check_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_closerWins"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintHorizontal_bias="0.971"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.594" />
+
+    <TextView
+        android:id="@+id/label_closer_wins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:elevation="5dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:text="Mais Perto Ganha"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_closerWins"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/label_quizz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:text="Quizz Clássico"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_classicQuizz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_classicQuizz"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </android.support.constraint.ConstraintLayout>

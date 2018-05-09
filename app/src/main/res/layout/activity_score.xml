@@ -65,7 +65,6 @@
         android:onClick="nextQuestion"
         android:text="Continuar"
         android:textStyle="bold"
-        app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
