@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ToggleButton;
 import android.widget.TextView;
 
@@ -19,8 +20,10 @@ public class ChooseCatg extends AppCompatActivity {
     public ToggleButton closer_wins_btn;
     public ToggleButton quizz_btn;
     public int rounds_count =1;
-    public  final int ROUNDS_MAX = 10;
+    public  final int ROUNDS_MAX = 9;
     public final int ROUNDS_MIN = 1;
+    public ImageView closer_check;
+    public ImageView quizz_check;
 
 
     @Override
@@ -32,6 +35,8 @@ public class ChooseCatg extends AppCompatActivity {
         quizz_btn.setChecked(true);
         closer_wins_btn=(ToggleButton) findViewById(R.id.btn_closerWins);
         closer_wins_btn.setChecked(true);
+        closer_check = findViewById(R.id.check_Closer);
+        closer_check.setVisibility(View.VISIBLE);
 
         inc_Rounds = (Button) findViewById(R.id.btn_increaseRound);
         dec_Rounds = (Button)findViewById(R.id.btn_decreaseRound);
@@ -49,6 +54,11 @@ public class ChooseCatg extends AppCompatActivity {
                     decreaseRounds();
             }
         });
+        closer_wins_btn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                closerClick();
+            }
+        });
 
     }
 
@@ -59,6 +69,17 @@ public class ChooseCatg extends AppCompatActivity {
     private void decreaseRounds() {
         rounds_count--;
         rounds_tv.setText(""+rounds_count+"");
+    }
+
+    public void closerClick(){
+        if(closer_check.getVisibility()==View.VISIBLE){
+            closer_check.setVisibility(View.INVISIBLE);
+            return;
+        }else
+            closer_check.setVisibility(View.VISIBLE);
+        return;
+
+
     }
 
     public void startPlaying(View v){
