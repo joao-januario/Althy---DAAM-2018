@@ -1,28 +1,32 @@
 package inducesmile.com.test_real_time.Game;
 
-import com.google.android.gms.games.quest.Quest;
-
 /**
  * Created by joao on 24/04/2018.
  */
 
 public class Question {
-    private int questionID;
-    private int correctAnswer;
-    private String questionText;
+    private String answer;
+    private String question;
+    private String question_id;
+    
 
-    public Question(int questionID, int correctAnswer,String questionText){
-        this.questionID = questionID;
-        this.correctAnswer=correctAnswer;
-        this.questionText = questionText;
+    public Question(){
+
+    }
+
+    public Question(String answer,String question,String questionID){
+        this.answer =answer;
+        this.question = question;
+        this.question_id = questionID;
+
     }
 
 
-    public String getQuestionText() {
-        return questionText;
+    public String getQuestion() {
+        return question;
     }
 
-    public int getCorrectAnswer(){
-        return correctAnswer;
+    public int getAnswer(){
+        return Integer.parseInt(answer);
     }
 }

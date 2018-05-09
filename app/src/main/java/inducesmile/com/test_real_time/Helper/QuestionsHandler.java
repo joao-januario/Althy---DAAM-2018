@@ -43,11 +43,11 @@ public class QuestionsHandler {
 
 
     public String getCurrentQuestionText(){
-        return questions.get(currentQuestion).getQuestionText();
+        return questions.get(currentQuestion).getQuestion();
     }
 
     public int getCurrentQuestionAnswer(){
-        return questions.get(currentQuestion).getCorrectAnswer();
+        return questions.get(currentQuestion).getAnswer();
     }
 
     public void updateUserScore(int questionScore){

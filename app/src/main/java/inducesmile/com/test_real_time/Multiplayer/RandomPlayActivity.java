@@ -133,8 +133,7 @@ public class RandomPlayActivity extends AppCompatActivity {
                 @Override
                 public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
                     Log.d("Message","mensagem recebida");
-                    int mensagem = realTimeMessage.getMessageData()[0];
-                    roomConfigLocal.setMessage(mensagem);
+                    roomConfigLocal.setMessage(realTimeMessage.getMessageData());
         }
     };
 
