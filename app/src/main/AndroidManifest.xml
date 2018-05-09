@@ -28,7 +28,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".AppNav.ChooseCatg" />
-        <activity android:name=".Game.TestGameActivity" />
+        <activity android:name=".Multiplayer.LoadingScreenMultiplayerActivity" />
         <activity android:name=".Multiplayer.RandomPlayActivity" />
         <activity android:name=".Helper.LoadingScreenSingleplayerActivity" />
         <activity android:name=".Game.ScoreActivity"></activity>

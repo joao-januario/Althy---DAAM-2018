@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesActivityResultCodes;
 import com.google.android.gms.games.GamesCallbackStatusCodes;
@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inducesmile.com.test_real_time.AppNav.MenuActivity;
-import inducesmile.com.test_real_time.Game.TestGameActivity;
 import inducesmile.com.test_real_time.Helper.MultiplayerLogin;
 import inducesmile.com.test_real_time.R;
 
@@ -41,6 +40,7 @@ public class RandomPlayActivity extends AppCompatActivity {
         startQuickGame();
     }
 
+    RoomConfigLocal roomConfigLocal = RoomConfigLocal.getInstance();
     ArrayList<Participant> mParticipants = null;
     String mRoomId = null;
     MultiplayerLogin login = MultiplayerLogin.getInstance();
@@ -63,8 +63,10 @@ public class RandomPlayActivity extends AppCompatActivity {
                         .build();
 
         // create room:
+
         Games.getRealTimeMultiplayerClient(this, login.getSignedInAccount())
                 .create(mroomConfig);
+
     }
 
 
@@ -84,6 +86,7 @@ public class RandomPlayActivity extends AppCompatActivity {
             }
 
             // save room ID so we can leave cleanly before the game starts.
+            roomConfigLocal.setRoomID(room.getRoomId());
             mRoomId = room.getRoomId();
 
             // show the waiting room UI
@@ -123,23 +126,15 @@ public class RandomPlayActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
     //Mensagens Real Time
 
 
-    OnRealTimeMessageReceivedListener mReceivedListener =  new OnRealTimeMessageReceivedListener() {
-        @Override
-        public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
-            //To Do
+            OnRealTimeMessageReceivedListener mReceivedListener =  new OnRealTimeMessageReceivedListener() {
+                @Override
+                public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
+                    Log.d("Message","mensagem recebida");
+                    int mensagem = realTimeMessage.getMessageData()[0];
+                    roomConfigLocal.setMessage(mensagem);
         }
     };
 
@@ -228,15 +223,20 @@ public class RandomPlayActivity extends AppCompatActivity {
 
         @Override
         public void onConnectedToRoom(@Nullable Room room) {
-            mParticipants = room.getParticipants();
+            //roomConfigLocal.setParticipants(room.getParticipants());
+            //mParticipants = room.getParticipants();
+            roomConfigLocal.setMyId(mMyId);
             mMyId = room.getParticipantId(mPlayerId);
             if (mRoomId == null) {
+                roomConfigLocal.setRoomID(room.getRoomId());
                 mRoomId = room.getRoomId();
             }
         }
 
+
         @Override
         public void onDisconnectedFromRoom(@Nullable Room room) {
+            roomConfigLocal.setRoomID(null);
             mRoomId=null;
             mroomConfig=null;
             showGameError();
@@ -279,7 +279,8 @@ public class RandomPlayActivity extends AppCompatActivity {
     //Funções Auxiliares
 
     private void startGame(boolean multiplayer){
-        Intent intent = new Intent(this,TestGameActivity.class);
+        Intent intent = new Intent(this,LoadingScreenMultiplayerActivity.class);
+
         startActivity(intent);
     }
 
@@ -288,7 +289,10 @@ public class RandomPlayActivity extends AppCompatActivity {
             mParticipants = room.getParticipants();
         }
         if (mParticipants != null) {
-            //
+            ArrayList<String> participants23= room.getParticipantIds();
+            roomConfigLocal.setParticipants(participants23);
+            Log.d("idPlayer",room.getParticipantIds().get(0));
+
         }
     }
 
