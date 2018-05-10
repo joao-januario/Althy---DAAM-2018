@@ -24,7 +24,7 @@ import inducesmile.com.test_real_time.R;
 public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
 
     RoomConfigLocal roomConfigLocal = RoomConfigLocal.getInstance();
-    byte[] bits = new byte[2];
+    byte[] bits = new byte[2000];
 
 
 
