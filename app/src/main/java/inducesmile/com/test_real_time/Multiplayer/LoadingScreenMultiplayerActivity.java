@@ -17,25 +17,34 @@ import com.google.android.gms.tasks.Task;
 
 import org.w3c.dom.Text;
 
+import java.util.Random;
+
 import inducesmile.com.test_real_time.R;
 
 public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
 
     RoomConfigLocal roomConfigLocal = RoomConfigLocal.getInstance();
-    byte[] bits = new byte[1];
+    byte[] bits = new byte[2];
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_game);
-        bits[0]=(byte )2;
+        Random r = new Random();
+        byte myHostNumber = (byte) Math.abs(r.nextInt());
+        roomConfigLocal.setMyNumberHost(myHostNumber);
+
+        bits[0]='H';
+        bits[1] = myHostNumber ;
+
+        sendToAllReliably(bits);
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-                       final int message = roomConfigLocal.getMessage();
-
-                runOnUiThread(new Runnable() {
+                    roomConfigLocal.decideHost();
+               /* runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
@@ -44,14 +53,9 @@ public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
                         // Stuff that updates the UI
 
                     }
-                });
+                }); */
             }
         }).start();
-
-    }
-
-
-    void changeText(int text2){
 
     }
 
@@ -82,7 +86,8 @@ public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
             };
 
     public void sendMessage(View v){
-        sendToAllReliably(bits);
+        if (roomConfigLocal.im_host()){
+            Log.d("host","Im the host");}
     }
 
 
