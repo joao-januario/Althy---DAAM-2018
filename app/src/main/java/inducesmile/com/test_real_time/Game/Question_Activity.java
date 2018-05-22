@@ -4,6 +4,7 @@ package inducesmile.com.test_real_time.Game;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
@@ -24,7 +25,7 @@ import inducesmile.com.test_real_time.R;
 
 
 public class Question_Activity extends AppCompatActivity {
-
+    CountDownTimer timer;
     private TextView textV_question;
     private TextView textV_answer;
     QuestionsHandler handler = QuestionsHandler.getInstance();
@@ -47,8 +48,28 @@ public class Question_Activity extends AppCompatActivity {
         //textV_answer.requestFocus();
         textV_answer.setInputType(InputType.TYPE_CLASS_NUMBER);
 
+        timer = new CountDownTimer(20000,1000){
+            TextView timer_tv = findViewById(R.id.timer_tv);
+            @Override
+            public void onTick(long l) {
+                timer_tv.setText(""+l/1000);
+            }
+
+            @Override
+            public void onFinish() {
+                nextScreen(0,handler.getCurrentQuestionAnswer(),0);
+            }
+        }.start();
+
     }
 
+    protected void onDestroy() {
+
+        super.onDestroy();
+        timer.cancel();
+
+
+    }
 
 
     public void confirmAnswer(View v){
@@ -57,6 +78,12 @@ public class Question_Activity extends AppCompatActivity {
         String user_answer_string = user_answer_text.getText().toString();
         int user_answer = Integer.parseInt(user_answer_string);
         int question_score = calculateScore(correct_answer,user_answer);
+        nextScreen(user_answer,correct_answer,question_score);
+
+
+    }
+
+    public void nextScreen(int user_answer,int correct_answer,int question_score){
         handler.nextQuestion();
         Intent intent = new Intent(this,ScoreActivity.class);
         intent.putExtra("user_answer",user_answer);
@@ -64,8 +91,6 @@ public class Question_Activity extends AppCompatActivity {
         intent.putExtra("question_score",question_score);
         startActivity(intent);
         finish();
-
-
     }
 
     private int calculateScore(int correct_answer,int user_answer){
