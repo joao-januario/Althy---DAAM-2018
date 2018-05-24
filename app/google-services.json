@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "443302877956",
+    "firebase_url": "https://placeholder-name-18875568.firebaseio.com",
+    "project_id": "placeholder-name-18875568",
+    "storage_bucket": "placeholder-name-18875568.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443302877956:android:e182ac2191ce11a6",
+        "android_client_info": {
+          "package_name": "inducesmile.com.test_real_time"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443302877956-i4bqqvungdun93tk9q0j8dph97or9q8g.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "443302877956-u2vfl02ins1jeh3a1s5o2vqenhs295v3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "inducesmile.com.test_real_time",
+            "certificate_hash": "166edfb8c71e88207d8b143703cf4a739ed5e56c"
+          }
+        },
+        {
+          "client_id": "443302877956-i9921rqq7cav27bbb4ru1hjlarmrgt9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ3dbtWGUAfzICBcorClNo-BRAy4WI-Dk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443302877956-i4bqqvungdun93tk9q0j8dph97or9q8g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
