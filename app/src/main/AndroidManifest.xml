@@ -9,13 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Multiplayer.MultiplayerGoogleLoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <service
+            android:name=".Helper.BackgroundSoundService"
+            android:enabled="true" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Multiplayer.MultiplayerGoogleLoginActivity"></activity>
         <activity android:name=".AppNav.MenuActivity" />
         <activity android:name=".Game.JoinSessionActivity" />
         <activity android:name=".Game.Question_Activity" />
@@ -30,11 +28,20 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".AppNav.ChooseCatg" />
+        <activity android:name=".AppNav.ChooseCatg">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Multiplayer.LoadingScreenMultiplayerActivity" />
         <activity android:name=".Multiplayer.RandomPlayActivity" />
         <activity android:name=".Helper.LoadingScreenSingleplayerActivity" />
         <activity android:name=".Game.ScoreActivity" />
+        <activity android:name=".Game.Quizz_Activity" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".SplashScreen_Activity"></activity>
     </application>
 
 </manifest>

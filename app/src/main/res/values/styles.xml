@@ -17,7 +17,8 @@
         <item name="android:gravity">center</item>
         <item name="android:hapticFeedbackEnabled">true</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">font/annie_use_your_telescope"</item>
+        <item name="android:fontFamily">@font/annie_use_your_telescope</item>
+        <item name="android:shadowColor"></item>
 
     </style>
 
@@ -28,6 +29,7 @@
         <item name="android:padding">10dp</item>
         <item name="android:gravity">center</item>
         <item name="android:hapticFeedbackEnabled">true</item>
+        <item name="android:fontFamily">@font/annie_use_your_telescope</item>
 
     </style>
 
@@ -39,6 +41,7 @@
         <item name="android:background">@drawable/button_bckg_blue_round</item>
         <item name="android:gravity">center</item>
         <item name="android:hapticFeedbackEnabled">true</item>
+        <item name="android:fontFamily">@font/annie_use_your_telescope</item>
 
     </style>
 

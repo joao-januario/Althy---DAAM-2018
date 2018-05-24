@@ -67,7 +67,7 @@ public class MenuActivity extends AppCompatActivity {
         solo_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MenuActivity.this, ChooseCatg.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             }
         });
