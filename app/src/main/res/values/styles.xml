@@ -18,6 +18,7 @@
         <item name="android:hapticFeedbackEnabled">true</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/annie_use_your_telescope</item>
+        <item name="android:shadowColor"></item>
 
     </style>
 

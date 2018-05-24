@@ -6,33 +6,23 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import inducesmile.com.test_real_time.Helper.QuestionsHandler;
 import inducesmile.com.test_real_time.R;
 
 
-public class Question_Activity extends AppCompatActivity {
-
+public class Quizz_Activity extends AppCompatActivity {
+/*
     private TextView textV_question;
     private TextView textV_answer;
     QuestionsHandler handler = QuestionsHandler.getInstance();
-    final int score_modifier=9;
+    final int score_modifier=9;*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question_);
+       /* setContentView(R.layout.activity_question_);
         textV_question=findViewById(R.id.question_tv);
         textV_answer=findViewById(R.id.answer_tv);
 
@@ -46,10 +36,10 @@ public class Question_Activity extends AppCompatActivity {
         //textV_answer.setCursorVisible(true);
         //textV_answer.requestFocus();
         textV_answer.setInputType(InputType.TYPE_CLASS_NUMBER);
-
+*/
     }
 
-
+/*
 
     public void confirmAnswer(View v){
         int correct_answer = handler.getCurrentQuestionAnswer();
@@ -83,5 +73,5 @@ public class Question_Activity extends AppCompatActivity {
 
         }
     }
-
+*/
 }

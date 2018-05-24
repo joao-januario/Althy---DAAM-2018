@@ -27,7 +27,7 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_screen_singleplayer);
         numberOfQuestions = getIntent().getIntExtra("numberOfQuestions",0);
-       // addQuestions();
+        addQuestions();
         generateQuestions();
     }
 
@@ -35,14 +35,15 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
     //Este add Questions é so para testarmos as perguntas enquanto nao temos o firebase a funcionar
     private void addQuestions(){
         handler.newGame();
-        //Question q = new Question(1,5000,"Qual é o numero mais proximo de 5000");
-        //Question q2 = new Question(2,3000,"Qual é o numero mais proximo de 3000");
-       // handler.addQuestion(q);
-        //handler.addQuestion(q2);
+        Question q = new Question("100000000","Como é que vai ser este dia muito feliz lolololol?","1");
+        Question q2 = new Question("30","Qual é o numero mais proximo de 3000Qual é o numero mais proximo de 3000Qual é o numero mais proximo de 3000","1");
+        handler.addQuestion(q);
+        handler.addQuestion(q2);
+
     }
 
     private void generateQuestions(){
-        handler.newGame();
+       /* handler.newGame();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
         final ArrayList<Integer> question_ids = new ArrayList<>();
@@ -65,15 +66,15 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
 
                     handler.addQuestion(q);
                 }
-
+*/
                 startGame();
-            }
+        /*    }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
             }
-        });
+        });*/
 
 
 

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.ToggleButton;
 import android.widget.TextView;
 
+import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
 import inducesmile.com.test_real_time.Helper.LoadingScreenSingleplayerActivity;
 import inducesmile.com.test_real_time.R;
 
@@ -24,7 +25,9 @@ public class ChooseCatg extends AppCompatActivity {
     public final int ROUNDS_MIN = 1;
     public ImageView closer_check;
     public ImageView quizz_check;
-
+    public BackgroundSoundService music;
+    public Intent svc;
+    private boolean shouldPlay = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,20 @@ public class ChooseCatg extends AppCompatActivity {
             }
         });
 
+
+        //MUSICA!
+        svc=new Intent(this, BackgroundSoundService.class);
+        startService(svc);
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        //Intent svc=new Intent(this, BackgroundSoundService.class);
+        if(!shouldPlay)
+            stopService(svc);
+        
     }
 
     private void increaseRounds() {
@@ -85,7 +102,9 @@ public class ChooseCatg extends AppCompatActivity {
     public void startPlaying(View v){
         Intent intent = new Intent(this, LoadingScreenSingleplayerActivity.class);
         intent.putExtra("numberOfQuestions",rounds_count);
+        shouldPlay = true;
         startActivity(intent);
+
         finish();
     }
 

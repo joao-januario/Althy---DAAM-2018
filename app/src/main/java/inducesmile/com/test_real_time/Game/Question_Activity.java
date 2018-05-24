@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
 import inducesmile.com.test_real_time.Helper.QuestionsHandler;
 import inducesmile.com.test_real_time.R;
 
@@ -30,6 +31,9 @@ public class Question_Activity extends AppCompatActivity {
     private TextView textV_answer;
     QuestionsHandler handler = QuestionsHandler.getInstance();
     final int score_modifier=9;
+    private boolean shouldPlay=false;
+    private Intent svc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,9 @@ public class Question_Activity extends AppCompatActivity {
             }
         }.start();
 
+        //MUSICA!
+        svc=new Intent(this, BackgroundSoundService.class);
+
     }
 
     protected void onDestroy() {
@@ -71,6 +78,12 @@ public class Question_Activity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(!shouldPlay)
+            stopService(svc);
+    }
 
     public void confirmAnswer(View v){
         int correct_answer = handler.getCurrentQuestionAnswer();
@@ -89,6 +102,7 @@ public class Question_Activity extends AppCompatActivity {
         intent.putExtra("user_answer",user_answer);
         intent.putExtra("correct_answer",correct_answer);
         intent.putExtra("question_score",question_score);
+        shouldPlay=true;
         startActivity(intent);
         finish();
     }

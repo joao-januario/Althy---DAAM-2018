@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import inducesmile.com.test_real_time.AppNav.MenuActivity;
+import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
 import inducesmile.com.test_real_time.Helper.QuestionsHandler;
 import inducesmile.com.test_real_time.R;
 
@@ -14,6 +15,9 @@ public class ScoreActivity extends AppCompatActivity {
     private int correct_answer;
     private int user_answer;
     private int user_score;
+    private boolean shouldPlay=false;
+    private Intent svc;
+
     QuestionsHandler handler = QuestionsHandler.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,8 @@ public class ScoreActivity extends AppCompatActivity {
         TextView userTotalScoreTv = findViewById(R.id.totalScore_tv);
         userTotalScoreTv.setText(Integer.toString(handler.getUserScore()));
 
+        //MUSICA!
+        svc=new Intent(this, BackgroundSoundService.class);
     }
 
     //O more questions verifica se o utilizador está na ultima pergunta ou não, se estiver volta ao menu principal, se n carrega a proxima pergunta
@@ -47,8 +53,16 @@ public class ScoreActivity extends AppCompatActivity {
         else{
             intent = new Intent(this, MenuActivity.class);
         }
+        shouldPlay=true;
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(!shouldPlay)
+            stopService(svc);
     }
 
 
