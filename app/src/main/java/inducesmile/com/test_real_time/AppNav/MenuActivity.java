@@ -40,6 +40,9 @@ public class MenuActivity extends AppCompatActivity {
     public Button random_btn;
     public Button help_btn;
     GoogleSignInAccount signedInAccount;
+    public Intent svc;
+    private boolean shouldPlay = false;
+
     MultiplayerLogin login = MultiplayerLogin.getInstance();
 
     @Override
@@ -66,6 +69,7 @@ public class MenuActivity extends AppCompatActivity {
         random_btn =  findViewById(R.id.btn_random);
         solo_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                shouldPlay = true;
                 startActivity(new Intent(MenuActivity.this, ChooseCatg.class));
                 //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
@@ -73,10 +77,20 @@ public class MenuActivity extends AppCompatActivity {
         });
         random_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                shouldPlay = true;
                 Intent intent = new Intent(MenuActivity.this, RandomPlayActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        //Intent svc=new Intent(this, BackgroundSoundService.class);
+        if(!shouldPlay)
+            stopService(svc);
+
     }
 
 
