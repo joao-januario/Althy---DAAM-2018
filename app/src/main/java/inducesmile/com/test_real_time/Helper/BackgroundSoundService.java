@@ -22,7 +22,7 @@ public class BackgroundSoundService extends Service {
         super.onCreate();
         player = MediaPlayer.create(this, R.raw.street_party);
         player.setLooping(true); // Set looping
-        player.setVolume(50,50);
+        player.setVolume(0.1f,0.1f);
 
     }
     @SuppressLint("WrongConstant")
@@ -49,6 +49,7 @@ public class BackgroundSoundService extends Service {
         player.stop();
         player.release();
     }
+
 
 
 

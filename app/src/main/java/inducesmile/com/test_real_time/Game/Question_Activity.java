@@ -37,10 +37,13 @@ public class Question_Activity extends AppCompatActivity {
     private Intent svc;
     private int single_or_multi;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_);
+
+
 //Singleplayer = 0 e Multiplayer = 1
         single_or_multi=getIntent().getIntExtra("Mode",0);
         textV_question=findViewById(R.id.question_tv);
@@ -75,6 +78,9 @@ public class Question_Activity extends AppCompatActivity {
 
         //MUSICA!
         svc=new Intent(this, BackgroundSoundService.class);
+        //pausar a musica
+        stopService(svc);
+        //pausar a musica
 
     }
 
@@ -86,12 +92,12 @@ public class Question_Activity extends AppCompatActivity {
 
     }
 
-    @Override
+  /*  @Override
     protected void onPause() {
         super.onPause();
         if(!shouldPlay)
             stopService(svc);
-    }
+    }*/
 
     public void confirmAnswer(View v){
         int correct_answer;

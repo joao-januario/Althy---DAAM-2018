@@ -36,6 +36,10 @@ public class ChooseCatg extends AppCompatActivity {
 
         quizz_btn = (ToggleButton) findViewById(R.id.btn_classicQuizz);
         quizz_btn.setChecked(true);
+        quizz_check = findViewById(R.id.check_quizz);
+        quizz_check.setVisibility(View.VISIBLE);
+
+
         closer_wins_btn=(ToggleButton) findViewById(R.id.btn_closerWins);
         closer_wins_btn.setChecked(true);
         closer_check = findViewById(R.id.check_Closer);
@@ -59,10 +63,14 @@ public class ChooseCatg extends AppCompatActivity {
         });
         closer_wins_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                closerClick();
+                check_click(closer_check);
             }
         });
-
+        quizz_btn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                check_click(quizz_check);
+            }
+        });
 
         //MUSICA!
         svc=new Intent(this, BackgroundSoundService.class);
@@ -88,12 +96,12 @@ public class ChooseCatg extends AppCompatActivity {
         rounds_tv.setText(""+rounds_count+"");
     }
 
-    public void closerClick(){
-        if(closer_check.getVisibility()==View.VISIBLE){
-            closer_check.setVisibility(View.INVISIBLE);
+    public void check_click(ImageView check){
+        if(check.getVisibility()==View.VISIBLE){
+            check.setVisibility(View.INVISIBLE);
             return;
         }else
-            closer_check.setVisibility(View.VISIBLE);
+            check.setVisibility(View.VISIBLE);
         return;
 
 
