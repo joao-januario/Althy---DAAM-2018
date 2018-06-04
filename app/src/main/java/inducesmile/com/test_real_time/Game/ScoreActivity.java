@@ -5,13 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
+import java.util.Random;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
 
 import inducesmile.com.test_real_time.AppNav.MenuActivity;
 import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
 import inducesmile.com.test_real_time.Helper.QuestionsHandler;
+import inducesmile.com.test_real_time.Helper.QuizQuestionsHandler;
 import inducesmile.com.test_real_time.R;
 
 public class ScoreActivity extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class ScoreActivity extends AppCompatActivity {
     private Intent svc;
 
     QuestionsHandler handler = QuestionsHandler.getInstance();
+    QuizQuestionsHandler quiz_handler = QuizQuestionsHandler.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,21 +53,49 @@ public class ScoreActivity extends AppCompatActivity {
     //O more questions verifica se o utilizador está na ultima pergunta ou não, se estiver volta ao menu principal, se n carrega a proxima pergunta
     public void nextQuestion(View v){
         Intent intent;
-        if ( handler.moreQuestions() ) {
-            intent = new Intent(this, Question_Activity.class);
-        }
-        else{
+        Random r = new Random();
+        double random = r.nextDouble();
 
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .unlock(getString(R.string.achievement_noob));
+        if(random>0.5){
+            if ( handler.moreQuestions() ) {
+                intent = new Intent(this, Question_Activity.class);
+            }else{
+                if ( quiz_handler.moreQuestions() ) {
+                    intent = new Intent(this, Quizz_Activity.class);
+                }else{
+                    Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                            .unlock(getString(R.string.achievement_noob));
 
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_principiante), 1);
+                    Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                            .increment(getString(R.string.achievement_principiante), 1);
 
 
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_mestre), 1);
-            intent = new Intent(this, MenuActivity.class);
+                    Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                            .increment(getString(R.string.achievement_mestre), 1);
+                    intent = new Intent(this, MenuActivity.class);
+
+                }
+            }
+        }else{
+            if ( quiz_handler.moreQuestions() ) {
+                intent = new Intent(this, Quizz_Activity.class);
+            }else{
+                if ( handler.moreQuestions() ) {
+                    intent = new Intent(this, Question_Activity.class);
+                }else{
+                    Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                            .unlock(getString(R.string.achievement_noob));
+
+                    Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                            .increment(getString(R.string.achievement_principiante), 1);
+
+
+                    Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                            .increment(getString(R.string.achievement_mestre), 1);
+                    intent = new Intent(this, MenuActivity.class);
+
+                }
+            }
         }
         shouldPlay=true;
         startActivity(intent);

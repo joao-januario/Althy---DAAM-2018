@@ -26,6 +26,8 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
     int categories;
     QuestionsHandler classic_handler = QuestionsHandler.getInstance();
     QuizQuestionsHandler quizz_handler = QuizQuestionsHandler.getInstance();
+    private boolean canStartQuiz=false;
+    private boolean canStartClassic=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +49,63 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
         //classic_handler.addQuestion(q2);
     }*/
 
-    private void generateQuestions(int categories) {
+    private void generateQuestions(final int categories) {
         classic_handler.newGame();
         quizz_handler.newGame();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
         final ArrayList<Integer> question_ids = new ArrayList<>();
 
+        new Thread(new Runnable() {
+            @Override
+            public synchronized void run() {
+                Log.d("TAG2","asfafsa");
+                if (categories==2){
+                    while(!canStartQuiz){
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    startQuizz();
+                }if (categories==1){
+                    while(!canStartClassic){
+                        try {
+                            Log.d("TAG", "print ");
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                     Log.d("TAG4","pppoeoe");
+                     startClassic();
+                }
+            }
+        }).start();
+
         //se for 0, é misturado, se for 1 é closer winds, se for 2 é quiz, se for 3 ou 4 é shieaaat;
         if (categories==2){
             generateQuizQuestions(myRef, question_ids, numberOfQuestions);
         }if (categories==1){
             generateDistanceQuestions(myRef, question_ids, numberOfQuestions);
+        }if (categories==0){
+            Random ran = new Random();
+            double r = ran.nextDouble();
+            if(r == 0)
+                r= 1;
+            else
+                r = ran.nextDouble();
+            int randomQ = ((int) r)*numberOfQuestions;
+
+            generateDistanceQuestions(myRef, question_ids, 2);
+
+                generateQuizQuestions(myRef, question_ids, 2);
         }
+
+
+
 
 
 
@@ -87,7 +133,9 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
 
                     quizz_handler.addQuestion(qz);
                 }
-                startQuizz();
+                canStartQuiz=true;
+
+                //startQuizz();
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -115,7 +163,10 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
                     Question q = question_data.getValue(Question.class);
                     classic_handler.addQuestion(q);
                 }
-                startClassic();
+                canStartClassic=true;
+                notifythreads();
+                Log.d("notige no distance", "print");
+                //startClassic();
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -138,4 +189,10 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
         finish();
     }
 
+    public synchronized void notifythreads(){
+        if (canStartClassic){
+            Log.d("TAG3","vcvcvvcvc0");
+        }
+        notifyAll();
+    }
 }
