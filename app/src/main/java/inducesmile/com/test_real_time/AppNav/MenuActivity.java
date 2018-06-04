@@ -2,34 +2,27 @@ package inducesmile.com.test_real_time.AppNav;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.GamesCallbackStatusCodes;
 import com.google.android.gms.games.Player;
 import com.google.android.gms.games.PlayersClient;
-import com.google.android.gms.games.multiplayer.realtime.Room;
-import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
-import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.util.Random;
-
+import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
 import inducesmile.com.test_real_time.Helper.MultiplayerLogin;
-import inducesmile.com.test_real_time.Multiplayer.PlayWithFriendsActivity;
+import inducesmile.com.test_real_time.Multiplayer.AchivementsActivity;
 import inducesmile.com.test_real_time.Multiplayer.RandomPlayActivity;
 import inducesmile.com.test_real_time.R;
 
@@ -40,9 +33,11 @@ public class MenuActivity extends AppCompatActivity {
     public Button solo_btn;
     public Button random_btn;
     public Button help_btn;
+    public ToggleButton mute_btn;
     GoogleSignInAccount signedInAccount;
     public Intent svc;
     private boolean shouldPlay = false;
+
 
     MultiplayerLogin login = MultiplayerLogin.getInstance();
 
@@ -51,7 +46,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         signedInAccount = login.getSignedInAccount();
-        Log.d("Teste","testesaaf");
+        //Log.d("Teste","testesaaf");
         PlayersClient playersClient = Games.getPlayersClient(this,signedInAccount);
 
         playersClient.getCurrentPlayer()
@@ -63,11 +58,20 @@ public class MenuActivity extends AppCompatActivity {
                     }
                 });
 
-
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
 
         multi_btn =  findViewById(R.id.btn_Multi);
         solo_btn =  findViewById(R.id.btn_solo);
         random_btn =  findViewById(R.id.btn_random);
+
+        //MUSICA!
+        //shouldPlay = true;
+
+        mute_btn=findViewById(R.id.mute_btn);
+        svc=new Intent(this, BackgroundSoundService.class);
+        startService(svc);
+
         solo_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shouldPlay = true;
@@ -80,7 +84,7 @@ public class MenuActivity extends AppCompatActivity {
         multi_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MenuActivity.this, PlayWithFriendsActivity.class);
+                Intent i = new Intent(MenuActivity.this, AchivementsActivity.class);
                 i.putExtra("Mode",1);
                 startActivity(i);
                 finish();
@@ -94,7 +98,35 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mute_btn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //shouldPlay = true;
+                toggleMute( svc, mute_btn);
+
+            }
+        });
+
+
+
     }
+
+    private void toggleMute(Intent svc, ToggleButton button) {
+
+        if(shouldPlay==true){
+            mute_btn.setBackgroundResource(R.drawable.sound_off_icon);
+            stopService(svc);
+            shouldPlay=false;
+            return;
+        }if(shouldPlay==false){
+            mute_btn.setBackgroundResource(R.drawable.sound_on_icon);
+            startService(svc);
+            shouldPlay=true;
+            return;
+        }
+
+    }
+
 
     @Override
     public void onPause(){
@@ -106,6 +138,12 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed ()
+    {
+
+        super.onBackPressed();
+    }
 
     private void signInSilently() {
         GoogleSignInClient signInClient = GoogleSignIn.getClient(this,

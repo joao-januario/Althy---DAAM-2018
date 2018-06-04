@@ -33,6 +33,17 @@
 
     </style>
 
+    <style name="BlueToggleButtonStyle" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:hapticFeedbackEnabled">true</item>
+        <item name="android:fontFamily">@font/annie_use_your_telescope</item>
+        <item name="android:background">@drawable/toggle_selector_bluebutton</item>
+    </style>
+
     <style name="OtherButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:textColor">#ffffff</item>

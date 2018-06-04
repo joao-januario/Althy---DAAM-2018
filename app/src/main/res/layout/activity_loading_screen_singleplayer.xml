@@ -21,7 +21,7 @@
         android:layout_marginTop="136dp"
         android:fontFamily="@font/annie_use_your_telescope"
         android:gravity="center"
-        android:text="A Carregar as questões"
+        android:text="A carregar as questões"
         android:textColor="#d61567f5"
         android:textSize="40sp"
         android:textStyle="bold"

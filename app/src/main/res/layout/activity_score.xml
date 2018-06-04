@@ -13,27 +13,27 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="Total"
         android:textAppearance="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
         android:textColor="#d61567f5"
-        android:textSize="30sp"
+        android:textSize="50sp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59" />
+        app:layout_constraintVertical_bias="0.7" />
 
     <TextView
         android:id="@+id/userAnswer_TV"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -43,15 +43,15 @@
         android:text="137"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textColor="#49e282"
-        android:textSize="24sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintHorizontal_bias="0.971"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468" />
+        app:layout_constraintVertical_bias="0.388" />
 
     <Button
         android:id="@+id/nextQuestion"
@@ -64,6 +64,7 @@
         android:layout_marginTop="8dp"
         android:onClick="nextQuestion"
         android:text="Continuar"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,8 +75,8 @@
 
     <TextView
         android:id="@+id/correctAnswer_tv"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -84,15 +85,15 @@
         android:gravity="center"
         android:text="5000"
         android:textColor="#49e282"
-        android:textSize="24sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintHorizontal_bias="0.97"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468" />
+        app:layout_constraintVertical_bias="0.548" />
 
     <TextView
         android:id="@+id/totalScore_tv"
@@ -104,14 +105,15 @@
         android:layout_marginTop="8dp"
         android:text="1001"
         android:textColor="#49e282"
-        android:textSize="46sp"
+        android:textSize="50sp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.701" />
 
     <TextView
         android:id="@+id/label_right_answer"
@@ -119,22 +121,22 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="Resposta Certa"
         android:textAppearance="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
         android:textColor="#d61567f5"
-        android:textSize="22sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintHorizontal_bias="0.036"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.394" />
+        app:layout_constraintVertical_bias="0.548" />
 
     <TextView
         android:id="@+id/label_Your_Answer"
@@ -142,22 +144,22 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="244dp"
-        android:layout_marginLeft="54dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginRight="244dp"
-        android:layout_marginStart="54dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="Tua Resposta"
         android:textAppearance="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
         android:textColor="#d61567f5"
-        android:textSize="22sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.965"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39" />
+        app:layout_constraintVertical_bias="0.392" />
 
     <ImageView
         android:id="@+id/score_shape_circle"
@@ -169,10 +171,10 @@
         android:src="@drawable/circle_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.026" />
 
     <TextView
         android:id="@+id/userScore_tv"
