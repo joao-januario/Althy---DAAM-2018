@@ -72,59 +72,26 @@ public class Quizz_Activity extends AppCompatActivity {
         option_a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // if(option_a.getText().toString().equals(right_answer)){
-               //     option_a.setBackgroundResource((R.drawable.button_selected_yellow_round));
-                option_a.setBackgroundResource((R.drawable.button_selected_yellow_round));
-                checkAnswer(option_a.getText().toString(), right_answer, option_a);
-                    nextScreen( option_a.getText().toString(), right_answer, 0);
-               // }
+               clickerCode(option_a);
             }
         });
         option_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // if(option_b.getText().toString().equals(right_answer)){
-                    //option_b.setBackgroundResource((R.drawable.button_selected_yellow_round));
-                option_b.setBackgroundResource((R.drawable.button_selected_yellow_round));
-                checkAnswer(option_a.getText().toString(), right_answer, option_b);
-                nextScreen(option_b.getText().toString(), right_answer, 0);
-               // }
+               clickerCode(option_b);
             }
         });
         option_c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timer.cancel();
-                option_c.setBackgroundResource((R.drawable.button_selected_yellow_round));
-               // if(option_c.getText().toString().equals(right_answer)){
-                //    option_c.setBackgroundResource((R.drawable.button_selected_yellow_round));
-               new Thread(new Runnable() {
-                    @Override
-                    public synchronized void run() {
+                clickerCode(option_c);
 
-                        try {
-                            sleep(2000);
-                            setSwitch_screen(true);
-                            notifyAll();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        checkAnswer(option_a.getText().toString(), right_answer, option_c);
-                        nextScreen(option_c.getText().toString(), right_answer, 0);
-                    }
-                }).start();
-               // }
             }
         });
         option_d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // if(option_d.getText().toString().equals(right_answer)){
-                //    option_d.setBackgroundResource((R.drawable.button_selected_yellow_round));
-                option_d.setBackgroundResource((R.drawable.button_selected_yellow_round));
-                checkAnswer(option_a.getText().toString(), right_answer, option_d);
-                nextScreen(option_d.getText().toString(), right_answer, 0);
-               // }
+              clickerCode(option_d);
             }
         });
 
@@ -137,7 +104,7 @@ public class Quizz_Activity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                nextScreen("0",handler.getCurrentQuestionAnswer(),0);
+                nextScreen();
             }
         }.start();
 
@@ -172,6 +139,7 @@ public class Quizz_Activity extends AppCompatActivity {
 
     private synchronized void setSwitch_screen(boolean v){
         switch_screen=v;
+        notifyAll();
     }
 
     protected void onDestroy() {
@@ -182,54 +150,21 @@ public class Quizz_Activity extends AppCompatActivity {
 
     }
 
-  /*  @Override
-    protected void onPause() {
-        super.onPause();
-        if(!shouldPlay)
-            stopService(svc);
-    }*/
-/*
-    public void confirmAnswer(View v){
-        int correct_answer;
-        if (single_or_multi==1){
-            correct_answer = multiplayerHandler.getCurrentQuestionAnswer();}
-        else{
-            correct_answer = handler.getCurrentQuestionAnswer();
-        }
-        TextView user_answer_text = findViewById(R.id.answer_tv);
-        String user_answer_string = user_answer_text.getText().toString();
-        int user_answer = Integer.parseInt(user_answer_string);
-        int question_score = calculateScore(correct_answer,user_answer);
-        nextScreen(user_answer,correct_answer,question_score);
 
 
-    }*/
-
-    public synchronized void nextScreen( String user_answer,String correct_answer,int question_score){
-
-       // checkAnswer(user_answer, correct_answer, option_btn);
+    public synchronized void nextScreen(){
 
         if (single_or_multi==1){
             multiplayerHandler.nextQuestion();
         }
         else{
             handler.nextQuestion();}
-        Intent intent = new Intent(this,ScoreActivity.class);
-       // intent.putExtra("user_answer",user_answer);
-        //intent.putExtra("correct_answer",correct_answer);
-       // intent.putExtra("question_score",question_score);
         shouldPlay=true;
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (switch_screen==false){
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                    verifyScreen();
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -245,18 +180,61 @@ public class Quizz_Activity extends AppCompatActivity {
 
     }
 
-    private void checkAnswer(String user_answer, String correct_answer, Button option_btn) {
+    private void checkAnswer(final String user_answer, final String correct_answer, final Button option_btn) {
+
+        new CountDownTimer(2000, 1000) {
+
+            @Override
+            public void onTick(long arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onFinish() {
+                if(user_answer.equals(correct_answer)){
+                    option_btn.setBackgroundResource((R.drawable.button_correct_green_round));
+                }
+
+                if(!user_answer.equals(correct_answer)){
+                    option_btn.setBackgroundResource((R.drawable.button_wrong_red_round));
+                }
+            }
+        }.start();
 
 
-        if(user_answer.equals(correct_answer)){
-            option_btn.setBackgroundResource((R.drawable.button_correct_green_round));
+
+
+    }
+
+    public synchronized void verifyScreen(){
+        while (switch_screen==false){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+    }
 
-        if(!user_answer.equals(correct_answer)){
-            option_btn.setBackgroundResource((R.drawable.button_wrong_red_round));
-        }
-
-
+    private void clickerCode(Button button){
+        timer.cancel();
+        button.setBackgroundResource((R.drawable.button_selected_yellow_round));
+        // if(option_c.getText().toString().equals(right_answer)){
+        //    option_c.setBackgroundResource((R.drawable.button_selected_yellow_round));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    sleep(2000);
+                    setSwitch_screen(true);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        checkAnswer(button.getText().toString(), right_answer, button);
+        nextScreen();
     }
 /*
     private int calculateScore(int correct_answer,int user_answer){

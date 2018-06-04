@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -37,6 +38,37 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
         //se for 0, é misturado, se for 1 é closer winds, se for 2 é quiz, se for 3 ou 4 é shieaaat;
         categories=getIntent().getIntExtra("categories", 4);
         generateQuestions(categories);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                checkQuestionsReady();
+                if(categories==2){
+                    startQuizz();
+                }else{
+                    if(categories==1){
+                        startClassic();
+                    }else{
+                        if(categories==0){
+                            Random r = new Random();
+                            if(r.nextDouble()>0.5){
+                                if(classic_handler.moreQuestions()){
+                                    startClassic();
+                                }else{
+                                    startQuizz();
+                                }
+                            }else{
+                                if(quizz_handler.moreQuestions()){
+                                    startQuizz();
+                                }else{
+                                    startClassic();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 
 
@@ -56,52 +88,20 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference();
         final ArrayList<Integer> question_ids = new ArrayList<>();
 
-        new Thread(new Runnable() {
-            @Override
-            public synchronized void run() {
-                Log.d("TAG2","asfafsa");
-                if (categories==2){
-                    while(!canStartQuiz){
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    startQuizz();
-                }if (categories==1){
-                    while(!canStartClassic){
-                        try {
-                            Log.d("TAG", "print ");
-                            wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
 
-                    }
-                     Log.d("TAG4","pppoeoe");
-                     startClassic();
-                }
-            }
-        }).start();
 
         //se for 0, é misturado, se for 1 é closer winds, se for 2 é quiz, se for 3 ou 4 é shieaaat;
         if (categories==2){
-            generateQuizQuestions(myRef, question_ids, numberOfQuestions);
+            generateQuizQuestions(myRef, numberOfQuestions);
         }if (categories==1){
-            generateDistanceQuestions(myRef, question_ids, numberOfQuestions);
+            notifythreads();
+            generateDistanceQuestions(myRef,  numberOfQuestions);
         }if (categories==0){
-            Random ran = new Random();
-            double r = ran.nextDouble();
-            if(r == 0)
-                r= 1;
-            else
-                r = ran.nextDouble();
-            int randomQ = ((int) r)*numberOfQuestions;
+            Random ran = new Random(numberOfQuestions+1);
+            int r = ran.nextInt();
 
-            generateDistanceQuestions(myRef, question_ids, 2);
-
-                generateQuizQuestions(myRef, question_ids, 2);
+            generateDistanceQuestions(myRef,  r);
+                generateQuizQuestions(myRef,  numberOfQuestions-r);
         }
 
 
@@ -112,12 +112,13 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
 
     }
 
-    private void generateQuizQuestions(DatabaseReference myRef, final ArrayList<Integer> question_ids, final int numbOfQuest  ) {
+    private void generateQuizQuestions(DatabaseReference myRef, final int numbOfQuest  ) {
         myRef.child("classico").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                ArrayList<Integer> question_ids = new ArrayList<>();
                 int total_questions = (int) dataSnapshot.getChildrenCount();
 
                 for (int i = 0; i < numbOfQuest; i++) {
@@ -134,7 +135,7 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
                     quizz_handler.addQuestion(qz);
                 }
                 canStartQuiz=true;
-
+                notifythreads();
                 //startQuizz();
             }
             @Override
@@ -144,14 +145,14 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
         });
     }
 
-    public void generateDistanceQuestions(DatabaseReference myRef, final ArrayList<Integer> question_ids, final int numbOfQuest  ) {
+    public void generateDistanceQuestions(DatabaseReference myRef, final int numbOfQuest  ) {
         myRef.child("perto").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 int total_questions = (int) dataSnapshot.getChildrenCount();
-
+                ArrayList<Integer> question_ids = new ArrayList<>();
                 for (int i = 0; i < numbOfQuest; i++) {
                     Random r = new Random();
                     int question_id = r.nextInt(total_questions);
@@ -176,7 +177,7 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
     }
 
     private void startClassic(){
-        Intent intent = new Intent(this,Question_Activity.class);
+        Intent intent = new Intent(LoadingScreenSingleplayerActivity.this,Question_Activity.class);
         intent.putExtra("Mode",0);
         startActivity(intent);
         finish();
@@ -194,5 +195,43 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
             Log.d("TAG3","vcvcvvcvc0");
         }
         notifyAll();
+    }
+
+    public synchronized void checkQuestionsReady(){
+        Log.d("TAG2","asfafsa");
+
+
+        if (categories==1){
+            while(canStartClassic==false){
+                try {
+                    Log.d("TAG", "print ");
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+        }
+    }else{
+            if(categories==2){
+                while (canStartQuiz==false){
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }else{
+                if (categories==0){
+                    while(!canStartQuiz && !canStartClassic){
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 }
