@@ -60,8 +60,8 @@
 
     <TextView
         android:id="@+id/rounds_count_tv"
-        android:layout_width="75dp"
-        android:layout_height="81dp"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -69,10 +69,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/border_style"
-        android:paddingBottom="10dp"
+        android:paddingBottom="15dp"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:paddingTop="10dp"
+        android:paddingTop="15dp"
         android:text="1"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
@@ -97,7 +97,7 @@
 
     <TextView
         android:id="@+id/rounds_tv"
-        android:layout_width="106dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -108,7 +108,7 @@
         android:paddingLeft="0dp"
         android:paddingTop="25dp"
         android:shadowRadius="5"
-        android:text="Rondas"
+        android:text="Quantas Perguntas?"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#ffffff"
@@ -186,8 +186,7 @@
 
     <Button
         android:id="@+id/playButton"
-        style="@style/OtherButtonStyle"
-
+        style="@style/BlueToggleButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
@@ -227,7 +226,7 @@
         android:text="Modo de Jogo"
         android:textAllCaps="false"
         android:textColor="#ffffff"
-        android:textSize="36sp"
+        android:textSize="60sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_closerWins"
         app:layout_constraintEnd_toEndOf="parent"

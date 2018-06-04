@@ -26,6 +26,8 @@
         android:shadowRadius="3"
         android:text="Pergunta"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#4d4d4d"
+        android:textSize="30sp"
         app:fontFamily="@font/annie_use_your_telescope"
         app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"

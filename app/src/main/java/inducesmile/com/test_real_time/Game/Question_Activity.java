@@ -55,6 +55,7 @@ public class Question_Activity extends AppCompatActivity {
             textV_question.setText(handler.getCurrentQuestionText());
         }
 
+
         textV_answer.setFocusable(true);
         textV_answer.setEnabled(true);
         textV_answer.setClickable(true);
@@ -63,6 +64,7 @@ public class Question_Activity extends AppCompatActivity {
         //textV_answer.setCursorVisible(true);
         //textV_answer.requestFocus();
         textV_answer.setInputType(InputType.TYPE_CLASS_NUMBER);
+      //  textV_answer.set
         timer = new CountDownTimer(20000,1000){
             TextView timer_tv = findViewById(R.id.timer_tv);
             @Override

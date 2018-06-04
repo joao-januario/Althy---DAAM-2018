@@ -17,11 +17,12 @@ public class ChooseCatg extends AppCompatActivity {
 
     public Button inc_Rounds;
     public Button dec_Rounds;
+    public Button playButton;
     public TextView rounds_tv;
     public ToggleButton closer_wins_btn;
     public ToggleButton quizz_btn;
     public int rounds_count =1;
-    public  final int ROUNDS_MAX = 9;
+    public  final int ROUNDS_MAX = 15;
     public final int ROUNDS_MIN = 1;
     public ImageView closer_check;
     public ImageView quizz_check;
@@ -34,10 +35,17 @@ public class ChooseCatg extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_catg);
 
+
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
+
+
         quizz_btn = (ToggleButton) findViewById(R.id.btn_classicQuizz);
         quizz_btn.setChecked(true);
         quizz_check = findViewById(R.id.check_quizz);
         quizz_check.setVisibility(View.VISIBLE);
+
+        playButton = findViewById(R.id.playButton);
 
 
         closer_wins_btn=(ToggleButton) findViewById(R.id.btn_closerWins);
@@ -64,11 +72,13 @@ public class ChooseCatg extends AppCompatActivity {
         closer_wins_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 check_click(closer_check);
+                activateButton();
             }
         });
         quizz_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 check_click(quizz_check);
+                activateButton();
             }
         });
 
@@ -78,6 +88,16 @@ public class ChooseCatg extends AppCompatActivity {
 
     }
 
+    public void activateButton(){
+        if(closer_wins_btn.isChecked() || quizz_btn.isChecked()){
+            playButton.setEnabled(true);
+        }
+        if(!closer_wins_btn.isChecked() && !quizz_btn.isChecked()){
+            playButton.setEnabled(false);
+
+        }
+    }
+
     @Override
     public void onPause(){
         super.onPause();
@@ -85,6 +105,13 @@ public class ChooseCatg extends AppCompatActivity {
         if(!shouldPlay)
             stopService(svc);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
     }
 
     private void increaseRounds() {
@@ -110,10 +137,23 @@ public class ChooseCatg extends AppCompatActivity {
     public void startPlaying(View v){
         Intent intent = new Intent(this, LoadingScreenSingleplayerActivity.class);
         intent.putExtra("numberOfQuestions",rounds_count);
+        int categories = checkCategories();
+        intent.putExtra("categories",categories);
         shouldPlay = true;
         startActivity(intent);
 
         finish();
+    }
+
+    private int checkCategories() {
+        if(closer_wins_btn.isChecked() && quizz_btn.isChecked()){
+            return 0;
+        }if(closer_wins_btn.isChecked() && !quizz_btn.isChecked()){
+            return 1;
+        }if(!closer_wins_btn.isChecked() && quizz_btn.isChecked()){
+            return 2;
+        }
+        return 3;
     }
 
 }

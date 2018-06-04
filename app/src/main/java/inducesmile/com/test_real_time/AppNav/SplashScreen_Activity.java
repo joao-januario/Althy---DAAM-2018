@@ -16,6 +16,7 @@ import android.widget.MediaController;
 import android.widget.VideoView;
 
 import inducesmile.com.test_real_time.AppNav.ChooseCatg;
+import inducesmile.com.test_real_time.Multiplayer.MultiplayerGoogleLoginActivity;
 import inducesmile.com.test_real_time.R;
 
 public class SplashScreen_Activity extends AppCompatActivity {
@@ -68,7 +69,7 @@ public class SplashScreen_Activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        startActivity(new Intent(this, ChooseCatg.class));
+        startActivity(new Intent(this, MultiplayerGoogleLoginActivity.class));
         finish();
     }
 }
