@@ -29,6 +29,7 @@ import java.nio.ByteBuffer;
 import java.util.Random;
 
 import inducesmile.com.test_real_time.Helper.MultiplayerLogin;
+import inducesmile.com.test_real_time.Multiplayer.PlayWithFriendsActivity;
 import inducesmile.com.test_real_time.Multiplayer.RandomPlayActivity;
 import inducesmile.com.test_real_time.R;
 
@@ -75,6 +76,17 @@ public class MenuActivity extends AppCompatActivity {
 
             }
         });
+
+        multi_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MenuActivity.this, PlayWithFriendsActivity.class);
+                i.putExtra("Mode",1);
+                startActivity(i);
+                finish();
+            }
+        });
+
         random_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 shouldPlay = true;
@@ -89,7 +101,8 @@ public class MenuActivity extends AppCompatActivity {
         super.onPause();
         //Intent svc=new Intent(this, BackgroundSoundService.class);
         if(!shouldPlay)
-            stopService(svc);
+            if(svc!=null){
+            stopService(svc);}
 
     }
 

@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.ToggleButton;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.games.Games;
+
 import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
 import inducesmile.com.test_real_time.Helper.LoadingScreenSingleplayerActivity;
 import inducesmile.com.test_real_time.R;
@@ -113,6 +116,11 @@ public class ChooseCatg extends AppCompatActivity {
         shouldPlay = true;
         startActivity(intent);
 
+        Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                .unlock(getString(R.string.achievement_noob));
+
+        Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                .increment(getString(R.string.achievement_principiante), 1);
         finish();
     }
 

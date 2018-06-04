@@ -43,6 +43,9 @@ public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
         Random r = new Random();
         byte myHostNumber = (byte) Math.abs(r.nextInt());
         roomConfigLocal.setMyNumberHost(myHostNumber);
+
+
+
         bits[0]='H';
         bits[1] = myHostNumber ;
         sendToAllReliably(bits);
@@ -83,13 +86,13 @@ public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
             new RealTimeMultiplayerClient.ReliableMessageSentCallback() {
                 @Override
                 public void onRealTimeMessageSent(int statusCode, int tokenId, String recipientId) {
-                    TextView text_tv = findViewById(R.id.testeSend);
-                    text_tv.setText(recipientId);
+
                 }
             };
 
     public void sendMessage(){
         if (roomConfigLocal.im_host()){
+            multiplayerHandler.newGame();
             totalNumberOfFirebaseQuestions();
 
         }
@@ -151,6 +154,7 @@ public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
     }
 
     public void startGame(){
+        roomConfigLocal.setPlaying();
         Intent intent = new Intent(LoadingScreenMultiplayerActivity.this, Question_Activity.class);
         intent.putExtra("Mode",1);
         startActivity(intent);

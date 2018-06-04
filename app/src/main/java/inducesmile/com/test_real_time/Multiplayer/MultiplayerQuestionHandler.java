@@ -1,20 +1,28 @@
 package inducesmile.com.test_real_time.Multiplayer;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.TextView;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.games.RealTimeMultiplayerClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
 import inducesmile.com.test_real_time.Game.Question;
 import inducesmile.com.test_real_time.Helper.QuestionsHandler;
+import inducesmile.com.test_real_time.R;
 
 public class MultiplayerQuestionHandler {
 
-    private int user_score=0;
     private static final MultiplayerQuestionHandler INSTANCE = new MultiplayerQuestionHandler();
-    private int totalNumberOfQuestions =0;
+    private final int  totalNumberOfQuestions =5;
     ArrayList<Question> questions = new ArrayList<>();
-    int currentQuestion =0;
-
+    int currentQuestion =1;
+    RoomConfigLocal roomConfigLocal = RoomConfigLocal.getInstance();
     private MultiplayerQuestionHandler(){
 
     }
@@ -26,15 +34,12 @@ public class MultiplayerQuestionHandler {
 
 
     public void newGame(){
-        user_score=0;
-        currentQuestion=0;
-        totalNumberOfQuestions=0;
+        currentQuestion=1;
         questions.clear();
     }
 
     public void addQuestion(Question q){
         questions.add(q);
-        totalNumberOfQuestions++;
         Log.d("TotalQuestions",Integer.toString(totalNumberOfQuestions));
     }
 
@@ -51,23 +56,16 @@ public class MultiplayerQuestionHandler {
         return questions.get(currentQuestion).getAnswer();
     }
 
-    public void updateUserScore(int questionScore){
-        user_score+=questionScore;
-    }
-
-    public int getUserScore(){
-        return user_score;
-    }
 
     public boolean moreQuestions(){
-        if (currentQuestion>=totalNumberOfQuestions){
+        Log.i("More Questions",Integer.toString(currentQuestion));
+        if (currentQuestion>=totalNumberOfQuestions-1){
             return false;
         }
         else {
             return true;
         }
     }
-
 
 }
 

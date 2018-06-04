@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+    <!-- app_id -->
+    <!-- package_name -->
+    <string name="package_name" translatable="false">inducesmile.com.test_real_time</string>
+    <!-- achievement Adivinho -->
+    <string name="achievement_adivinho" translatable="false">CgkIhLakt_MMEAIQAQ</string>
+    <!-- achievement Noob -->
+    <string name="achievement_noob" translatable="false">CgkIhLakt_MMEAIQAg</string>
+    <!-- achievement Principiante -->
+    <string name="achievement_principiante" translatable="false">CgkIhLakt_MMEAIQAw</string>
+</resources>

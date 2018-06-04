@@ -5,13 +5,22 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.games.RealTimeMultiplayerClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,6 +32,8 @@ import java.util.Map;
 import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
 import inducesmile.com.test_real_time.Helper.QuestionsHandler;
 import inducesmile.com.test_real_time.Multiplayer.MultiplayerQuestionHandler;
+import inducesmile.com.test_real_time.Multiplayer.MultiplayerScoreActivity;
+import inducesmile.com.test_real_time.Multiplayer.RoomConfigLocal;
 import inducesmile.com.test_real_time.R;
 
 
@@ -36,7 +47,8 @@ public class Question_Activity extends AppCompatActivity {
     private boolean shouldPlay=false;
     private Intent svc;
     private int single_or_multi;
-
+    private boolean answered=false;
+    RoomConfigLocal roomConfigLocal = RoomConfigLocal.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +62,7 @@ public class Question_Activity extends AppCompatActivity {
         textV_answer=findViewById(R.id.answer_tv);
 
         if (single_or_multi==1){
+
         textV_question.setText(multiplayerHandler.getCurrentQuestionText());}
         else{
             textV_question.setText(handler.getCurrentQuestionText());
@@ -63,6 +76,7 @@ public class Question_Activity extends AppCompatActivity {
         //textV_answer.setCursorVisible(true);
         //textV_answer.requestFocus();
         textV_answer.setInputType(InputType.TYPE_CLASS_NUMBER);
+
         timer = new CountDownTimer(20000,1000){
             TextView timer_tv = findViewById(R.id.timer_tv);
             @Override
@@ -72,7 +86,32 @@ public class Question_Activity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                nextScreen(0,handler.getCurrentQuestionAnswer(),0);
+
+                final int correct_answer;
+                if(single_or_multi==1){
+                    if(!answered){
+                    correct_answer = multiplayerHandler.getCurrentQuestionAnswer();
+                    int user_answer = 0;
+                    roomConfigLocal.addMyAnswer(user_answer);
+                    BigInteger bi = BigInteger.valueOf(user_answer);
+                    Log.d("Sending My Answer" ,""+bi);
+                    sendToAllReliably(bi.toByteArray());
+                    Button button = findViewById(R.id.ok_btn2);
+                    button.setEnabled(false);
+                    button.setVisibility(View.INVISIBLE);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            roomConfigLocal.waitForEveryoneToAnswer();
+                            Intent intent = new Intent(Question_Activity.this,MultiplayerScoreActivity.class);
+                            intent.putExtra("correct answer",correct_answer);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).start();}
+                }else{
+                    nextScreen(0,handler.getCurrentQuestionAnswer(),0);
+                }
             }
         }.start();
 
@@ -87,7 +126,7 @@ public class Question_Activity extends AppCompatActivity {
     protected void onDestroy() {
 
         super.onDestroy();
-        timer.cancel();
+     //   timer.cancel();
 
 
     }
@@ -100,19 +139,43 @@ public class Question_Activity extends AppCompatActivity {
     }*/
 
     public void confirmAnswer(View v){
-        int correct_answer;
+        final int correct_answer;
         if (single_or_multi==1){
-        correct_answer = multiplayerHandler.getCurrentQuestionAnswer();}
+            answered=true;
+            correct_answer = multiplayerHandler.getCurrentQuestionAnswer();
+            TextView user_answer_text = findViewById(R.id.answer_tv);
+            String user_answer_string = user_answer_text.getText().toString();
+            int user_answer = Integer.parseInt(user_answer_string);
+            roomConfigLocal.addMyAnswer(user_answer);
+            BigInteger bi = BigInteger.valueOf(user_answer);
+            Log.d("Sending My Answer" ,""+bi);
+            sendToAllReliably(bi.toByteArray());
+            Button button = findViewById(R.id.ok_btn2);
+            button.setEnabled(false);
+            button.setVisibility(View.INVISIBLE);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    roomConfigLocal.waitForEveryoneToAnswer();
+                    Intent intent = new Intent(Question_Activity.this,MultiplayerScoreActivity.class);
+                    intent.putExtra("correct answer",correct_answer);
+                    startActivity(intent);
+                    finish();
+                }
+            }).start();
+
+        }
         else{
             correct_answer = handler.getCurrentQuestionAnswer();
+
+            TextView user_answer_text = findViewById(R.id.answer_tv);
+            String user_answer_string = user_answer_text.getText().toString();
+            int user_answer = Integer.parseInt(user_answer_string);
+            int question_score = calculateScore(correct_answer,user_answer);
+            nextScreen(user_answer,correct_answer,question_score);
+
+
         }
-        TextView user_answer_text = findViewById(R.id.answer_tv);
-        String user_answer_string = user_answer_text.getText().toString();
-        int user_answer = Integer.parseInt(user_answer_string);
-        int question_score = calculateScore(correct_answer,user_answer);
-        nextScreen(user_answer,correct_answer,question_score);
-
-
     }
 
     public void nextScreen(int user_answer,int correct_answer,int question_score){
@@ -145,5 +208,29 @@ public class Question_Activity extends AppCompatActivity {
 
         }
     }
+
+    void sendToAllReliably(byte[] message) {
+        for (String participantId : roomConfigLocal.getParticipants()) {
+            if (!participantId.equals(roomConfigLocal.getMyId())) {
+                Task<Integer> task = Games.
+                        getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                        .sendReliableMessage(message, roomConfigLocal.getRoomID(), participantId,
+                                handleMessageSentCallback).addOnCompleteListener(new OnCompleteListener<Integer>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Integer> task) {
+                                // Keep track of which messages are sent, if desired.
+
+                            }
+                        });
+            }
+        }
+    }
+
+    private RealTimeMultiplayerClient.ReliableMessageSentCallback handleMessageSentCallback =
+            new RealTimeMultiplayerClient.ReliableMessageSentCallback() {
+                @Override
+                public void onRealTimeMessageSent(int statusCode, int tokenId, String recipientId) {
+                }
+            };
 
 }

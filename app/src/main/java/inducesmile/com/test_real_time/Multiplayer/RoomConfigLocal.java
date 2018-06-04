@@ -17,6 +17,8 @@ import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import inducesmile.com.test_real_time.Game.Question;
@@ -34,12 +36,19 @@ public class RoomConfigLocal extends Question_Activity{
     private ArrayList<String> playersReady = new ArrayList<>();
     private String myId;
     private int message=-1;
+    private ArrayList<String> playersID = new ArrayList<>();
+    private HashMap<String,String> usernames = new HashMap<>();
+    private HashMap<String,Integer> player_scores = new HashMap<>();
     private ArrayList<Integer> host_deciders = new ArrayList<>();
     private ArrayList<Integer> questionsPicked = new ArrayList<>();
+    private ArrayList<String> playersReadyForNextRound = new ArrayList<>();
     private int myNumberHost;
     private boolean host=true;
     private boolean settingUpQuestions=false;
     private boolean readyToPlay=false;
+    private boolean playing = false;
+    private boolean readyForNextRound=false;
+    private HashMap<String,Integer> answers_to_current_question = new HashMap<>();
     public Context current_context;
 
     private RoomConfigLocal(){
@@ -61,6 +70,7 @@ public class RoomConfigLocal extends Question_Activity{
     }
 
     public void setMyId(String myId){
+        Log.d("My id",myId);
         this.myId=myId;
     }
 
@@ -72,8 +82,21 @@ public class RoomConfigLocal extends Question_Activity{
         return mParticipants;
     }
 
+    public synchronized ArrayList<String> getmParticipants(){
+        return mParticipants;
+    }
+
+    public void addUsername(String idPlayer,String displayName){
+        usernames.put(idPlayer,displayName);
+        player_scores.put(idPlayer,0);
+    }
+
     public String getMyId(){
         return myId;
+    }
+
+    public synchronized void setPlaying(){
+        playing=true;
     }
 
     public void setMyNumberHost(int number){
@@ -88,7 +111,65 @@ public class RoomConfigLocal extends Question_Activity{
         this.readyToPlay=readyToPlay;
         notifyAll();
     }
-    public synchronized void  setMessage(byte[] message){
+
+    public synchronized void addMyAnswer(int myAnswer){
+        playersID.add(myId);
+        answers_to_current_question.put(myId,myAnswer);
+        notifyAll();
+    }
+
+    public synchronized HashMap<String,Integer> getAllAnswersToCurrentQuestion(){
+        return answers_to_current_question;
+    }
+
+    public synchronized HashMap<String,String> getAllPlayersIds(){
+        return usernames;
+    }
+
+    public synchronized void clearAllAnswersToCurrentQuestion(){
+        playersID.clear();
+        answers_to_current_question.clear();
+    }
+
+    public synchronized void addPlayerScore(String playerID,int score){
+        player_scores.put(playerID,player_scores.get(playerID)+ score);
+        Log.d("Player Score",Integer.toString(player_scores.get(playerID)));
+
+
+    }
+
+    public synchronized HashMap<String, Integer> getPlayerScore(){
+        return player_scores;
+    }
+
+    public synchronized void addReadyPlayerForNextRound(String playerID){
+        if (!playersReadyForNextRound.contains(playerID)){
+            playersReadyForNextRound.add(playerID);
+            notifyAll();
+        }
+    }
+
+    public synchronized void setReadyForNextRound(boolean state){
+        readyForNextRound=state;
+        notifyAll();
+    }
+
+    public synchronized void waitForEveryoneReadyForNextRound(){
+        while (!readyForNextRound || playersReadyForNextRound.size()!=mParticipants.size()-1){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public synchronized void clearEveryoneReadyForNextRound(){
+        playersReadyForNextRound.clear();
+    }
+
+
+    public synchronized void  setMessage(byte[] message,String playerId){
 
         //Mensagem H são mensagens para decidir o Host, ele fica à espera que todos mandem uma mensagem H, o que escolher o maior numero é considerado o Host, a thread que é acordada está na classe LoadingScreenMultiplayer
         if (message[0]=='H'){
@@ -107,13 +188,29 @@ public class RoomConfigLocal extends Question_Activity{
 
         else{
          if(settingUpQuestions){
-
              BigInteger bi = new BigInteger(message);
              int question_number = bi.intValue();
              Log.d("This Question",""+question_number);
              questionsPicked.add(question_number);
              notifyAll();
             }
+            else{
+             if(playing){
+
+                 if (message[0]=='N'){
+                    addReadyPlayerForNextRound(playerId);
+                 }else{
+                     BigInteger bi = new BigInteger(message);
+                     int question_answer = bi.intValue();
+                     Log.d("question Answer",""+question_answer);
+                     playersID.add(playerId);
+                     answers_to_current_question.put(playerId,question_answer);
+                     notifyAll();
+                 }
+
+
+             }
+         }
         }
 
 
@@ -132,8 +229,8 @@ public class RoomConfigLocal extends Question_Activity{
     }
 
 
-
     public synchronized void decideHost() {
+        multiplayerHandler.newGame();
         while (host_deciders.size() != mParticipants.size() - 1) {
             try {
                 wait();
@@ -150,6 +247,7 @@ public class RoomConfigLocal extends Question_Activity{
             }
         }
         if(host==false){
+            Log.d("Host Decided","The other player is the host");
             settingUpQuestions=true;
         }
     }
@@ -163,7 +261,7 @@ public class RoomConfigLocal extends Question_Activity{
                 }
         }
         Collections.sort(questionsPicked);
-
+        Log.i("Setting up",Integer.toString(questionsPicked.size()));
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference();
             myRef.child("perto").addValueEventListener(new ValueEventListener() {
@@ -211,5 +309,38 @@ public class RoomConfigLocal extends Question_Activity{
                 }
             }
 
+    }
+
+    public synchronized void waitForEveryoneToAnswer(){
+        Log.d("answers received", Integer.toString(answers_to_current_question.size()));
+        if (answers_to_current_question.size()!=mParticipants.size()){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void resetRoom(){
+        roomID=null;
+        mParticipants=null;
+        playersReady.clear();
+        myId=null;
+        message=-1;
+        playersID.clear();
+        usernames.clear();
+        player_scores.clear();
+        host_deciders.clear();
+        questionsPicked.clear();
+        playersReadyForNextRound.clear();
+        myNumberHost=0;
+        host=true;
+        settingUpQuestions=false;
+        readyToPlay=false;
+        playing=false;
+        readyForNextRound=false;
+        answers_to_current_question.clear();
+        current_context=null;
     }
 }

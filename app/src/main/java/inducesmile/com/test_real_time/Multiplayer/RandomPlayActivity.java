@@ -135,7 +135,7 @@ public class RandomPlayActivity extends AppCompatActivity {
                 @Override
                 public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
                     Log.d("Message","mensagem recebida");
-                    roomConfigLocal.setMessage(realTimeMessage.getMessageData());
+                    roomConfigLocal.setMessage(realTimeMessage.getMessageData(),realTimeMessage.getSenderParticipantId());
         }
     };
 
@@ -158,12 +158,12 @@ public class RandomPlayActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Intent>() {
                     @Override
                     public void onSuccess(Intent intent) {
-                        // show waiting room UI
                         startActivityForResult(intent, RC_WAITING_ROOM);
                     }
                 });
 
     }
+    // show waiting room UI
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -226,8 +226,9 @@ public class RandomPlayActivity extends AppCompatActivity {
         public void onConnectedToRoom(@Nullable Room room) {
             //roomConfigLocal.setParticipants(room.getParticipants());
             //mParticipants = room.getParticipants();
-            roomConfigLocal.setMyId(mMyId);
+
             mMyId = room.getParticipantId(mPlayerId);
+            roomConfigLocal.setMyId(mMyId);
             if (mRoomId == null) {
                 roomConfigLocal.setRoomID(room.getRoomId());
                 mRoomId = room.getRoomId();
@@ -290,9 +291,13 @@ public class RandomPlayActivity extends AppCompatActivity {
             mParticipants = room.getParticipants();
         }
         if (mParticipants != null) {
+            for (Participant p: mParticipants){
+                roomConfigLocal.addUsername(p.getParticipantId(),p.getDisplayName());
+            }
             ArrayList<String> participants23= room.getParticipantIds();
             roomConfigLocal.setParticipants(participants23);
             Log.d("idPlayer",room.getParticipantIds().get(0));
+
 
         }
     }

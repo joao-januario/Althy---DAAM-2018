@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="inducesmile.com.test_real_time"
-    >
-
+    package="inducesmile.com.test_real_time">
 
     <application
         android:allowBackup="true"
@@ -11,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <service android:name=".Helper.BackgroundSoundService" android:enabled="true" />
-        <activity android:name=".Multiplayer.MultiplayerGoogleLoginActivity">
+        <service
+            android:name=".Helper.BackgroundSoundService"
+            android:enabled="true" />
 
-        </activity>
+        <activity android:name=".Multiplayer.MultiplayerGoogleLoginActivity" />
         <activity android:name=".AppNav.MenuActivity" />
         <activity android:name=".Game.JoinSessionActivity" />
         <activity android:name=".Game.Question_Activity" />
@@ -29,7 +28,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".AppNav.ChooseCatg"/>
+        <activity android:name=".AppNav.ChooseCatg" />
         <activity android:name=".Multiplayer.LoadingScreenMultiplayerActivity" />
         <activity android:name=".Multiplayer.RandomPlayActivity" />
         <activity android:name=".Helper.LoadingScreenSingleplayerActivity" />
@@ -42,8 +41,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".Multiplayer.MultiplayerScoreActivity" />
+        <activity android:name=".Multiplayer.MultiplayerFinalScoreActivity" />
+        <activity android:name=".Multiplayer.PlayWithFriendsActivity"></activity>
     </application>
 
 </manifest>
