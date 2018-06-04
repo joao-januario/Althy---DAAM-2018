@@ -20,6 +20,8 @@ import inducesmile.com.test_real_time.Helper.QuizQuestionsHandler;
 import inducesmile.com.test_real_time.Multiplayer.MultiplayerQuestionHandler;
 import inducesmile.com.test_real_time.R;
 
+import static java.lang.Thread.sleep;
+
 
 public class Quizz_Activity extends AppCompatActivity {
     CountDownTimer timer;
@@ -32,7 +34,7 @@ public class Quizz_Activity extends AppCompatActivity {
     private boolean shouldPlay=false;
     private Intent svc;
     private int single_or_multi;
-
+    private boolean switch_screen=false;
     private Button option_a;
     private Button option_b;
     private Button option_c;
@@ -63,10 +65,68 @@ public class Quizz_Activity extends AppCompatActivity {
         //Respostas
         right_answer=handler.getCurrentQuestionAnswer();
         fill_buttons();
-
         //respostas
 
+        //check answer
 
+        option_a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // if(option_a.getText().toString().equals(right_answer)){
+               //     option_a.setBackgroundResource((R.drawable.button_selected_yellow_round));
+                option_a.setBackgroundResource((R.drawable.button_selected_yellow_round));
+                checkAnswer(option_a.getText().toString(), right_answer, option_a);
+                    nextScreen( option_a.getText().toString(), right_answer, 0);
+               // }
+            }
+        });
+        option_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // if(option_b.getText().toString().equals(right_answer)){
+                    //option_b.setBackgroundResource((R.drawable.button_selected_yellow_round));
+                option_b.setBackgroundResource((R.drawable.button_selected_yellow_round));
+                checkAnswer(option_a.getText().toString(), right_answer, option_b);
+                nextScreen(option_b.getText().toString(), right_answer, 0);
+               // }
+            }
+        });
+        option_c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer.cancel();
+                option_c.setBackgroundResource((R.drawable.button_selected_yellow_round));
+               // if(option_c.getText().toString().equals(right_answer)){
+                //    option_c.setBackgroundResource((R.drawable.button_selected_yellow_round));
+               new Thread(new Runnable() {
+                    @Override
+                    public synchronized void run() {
+
+                        try {
+                            sleep(2000);
+                            setSwitch_screen(true);
+                            notifyAll();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        checkAnswer(option_a.getText().toString(), right_answer, option_c);
+                        nextScreen(option_c.getText().toString(), right_answer, 0);
+                    }
+                }).start();
+               // }
+            }
+        });
+        option_d.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // if(option_d.getText().toString().equals(right_answer)){
+                //    option_d.setBackgroundResource((R.drawable.button_selected_yellow_round));
+                option_d.setBackgroundResource((R.drawable.button_selected_yellow_round));
+                checkAnswer(option_a.getText().toString(), right_answer, option_d);
+                nextScreen(option_d.getText().toString(), right_answer, 0);
+               // }
+            }
+        });
 
                 timer = new CountDownTimer(20000,1000){
             TextView timer_tv = findViewById(R.id.timer_tv);
@@ -77,7 +137,7 @@ public class Quizz_Activity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                nextScreen(0,handler.getCurrentQuestionAnswer(),0);
+                nextScreen("0",handler.getCurrentQuestionAnswer(),0);
             }
         }.start();
 
@@ -108,6 +168,10 @@ public class Quizz_Activity extends AppCompatActivity {
 
 
 
+    }
+
+    private synchronized void setSwitch_screen(boolean v){
+        switch_screen=v;
     }
 
     protected void onDestroy() {
@@ -141,7 +205,10 @@ public class Quizz_Activity extends AppCompatActivity {
 
     }*/
 
-    public void nextScreen(int user_answer,String correct_answer,int question_score){
+    public synchronized void nextScreen( String user_answer,String correct_answer,int question_score){
+
+       // checkAnswer(user_answer, correct_answer, option_btn);
+
         if (single_or_multi==1){
             multiplayerHandler.nextQuestion();
         }
@@ -152,8 +219,44 @@ public class Quizz_Activity extends AppCompatActivity {
         //intent.putExtra("correct_answer",correct_answer);
        // intent.putExtra("question_score",question_score);
         shouldPlay=true;
-        startActivity(intent);
-        finish();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (switch_screen==false){
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Intent intent = new Intent(Quizz_Activity.this,ScoreActivity.class);
+                startActivity(intent);
+
+                finish();
+            }
+        }).start();
+
+    }
+
+    private void checkAnswer(String user_answer, String correct_answer, Button option_btn) {
+
+
+        if(user_answer.equals(correct_answer)){
+            option_btn.setBackgroundResource((R.drawable.button_correct_green_round));
+        }
+
+        if(!user_answer.equals(correct_answer)){
+            option_btn.setBackgroundResource((R.drawable.button_wrong_red_round));
+        }
+
+
     }
 /*
     private int calculateScore(int correct_answer,int user_answer){
