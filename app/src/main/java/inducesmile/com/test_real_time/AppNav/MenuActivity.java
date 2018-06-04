@@ -95,6 +95,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v){
                 shouldPlay = true;
                 Intent intent = new Intent(MenuActivity.this, RandomPlayActivity.class);
+                intent.putExtra("Mode",1);
                 startActivity(intent);
             }
         });

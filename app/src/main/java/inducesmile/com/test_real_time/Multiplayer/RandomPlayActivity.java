@@ -40,7 +40,6 @@ public class RandomPlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random_play_activty);
 
-        open_intent=getIntent().getIntExtra("Mode",0);
         startQuickGame();
     }
 
@@ -325,26 +324,6 @@ public class RandomPlayActivity extends AppCompatActivity {
                 });
     }
 
-    public void onPause() {
 
-        super.onPause();
-        open_intent=0;
-    }
-
-    public void onResume() {
-        super.onResume();
-        if (open_intent==1){
-            startQuickGame();}
-        else{
-            backToMenu();
-        }
-        super.onResume();
-    }
-
-    private void backToMenu(){
-        Intent i = new Intent(RandomPlayActivity.this, MenuActivity.class);
-        startActivity(i);
-        finish();
-    }
 
 }
