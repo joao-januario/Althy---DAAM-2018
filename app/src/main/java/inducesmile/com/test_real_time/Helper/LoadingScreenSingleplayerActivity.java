@@ -58,7 +58,7 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
         if (categories==2){
             generateQuizQuestions(myRef, question_ids, numberOfQuestions);
         }if (categories==1){
-           // generateDistanceQuestions(myRef, question_ids, numberOfQuestions);
+            generateDistanceQuestions(myRef, question_ids, numberOfQuestions);
         }
 
 

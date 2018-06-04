@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.games.Games;
+
 import inducesmile.com.test_real_time.AppNav.MenuActivity;
 import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
 import inducesmile.com.test_real_time.Helper.QuestionsHandler;
@@ -51,6 +54,16 @@ public class ScoreActivity extends AppCompatActivity {
             intent = new Intent(this, Question_Activity.class);
         }
         else{
+
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_noob));
+
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_principiante), 1);
+
+
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_mestre), 1);
             intent = new Intent(this, MenuActivity.class);
         }
         shouldPlay=true;

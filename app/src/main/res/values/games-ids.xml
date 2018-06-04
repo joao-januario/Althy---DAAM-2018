@@ -13,4 +13,7 @@ Save this file as res/values/games-ids.xml in your project.
     <string name="achievement_noob" translatable="false">CgkIhLakt_MMEAIQAg</string>
     <!-- achievement Principiante -->
     <string name="achievement_principiante" translatable="false">CgkIhLakt_MMEAIQAw</string>
+    <!-- achievement Mestre -->
+    <string name="achievement_mestre" translatable="false">CgkIhLakt_MMEAIQBQ</string>
 </resources>
+

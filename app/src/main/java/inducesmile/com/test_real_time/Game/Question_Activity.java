@@ -126,7 +126,7 @@ public class Question_Activity extends AppCompatActivity {
     protected void onDestroy() {
 
         super.onDestroy();
-     //   timer.cancel();
+        timer.cancel();
 
 
     }

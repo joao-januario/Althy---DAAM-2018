@@ -145,11 +145,6 @@ public class ChooseCatg extends AppCompatActivity {
         shouldPlay = true;
         startActivity(intent);
 
-        Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                .unlock(getString(R.string.achievement_noob));
-
-        Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                .increment(getString(R.string.achievement_principiante), 1);
         finish();
     }
 
