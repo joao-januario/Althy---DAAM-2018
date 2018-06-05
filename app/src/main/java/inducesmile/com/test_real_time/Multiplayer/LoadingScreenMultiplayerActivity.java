@@ -52,6 +52,7 @@ public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                    multiplayerHandler.newGame();
                     roomConfigLocal.decideHost();
                     sendMessage();
                     roomConfigLocal.setUpQuestions();
