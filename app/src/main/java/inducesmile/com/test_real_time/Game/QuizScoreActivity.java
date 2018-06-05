@@ -1,13 +1,15 @@
 package inducesmile.com.test_real_time.Game;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import java.util.Random;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
+
+import java.util.Random;
 
 import inducesmile.com.test_real_time.AppNav.MenuActivity;
 import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
@@ -16,10 +18,10 @@ import inducesmile.com.test_real_time.Helper.QuizQuestionsHandler;
 import inducesmile.com.test_real_time.Helper.UserScore;
 import inducesmile.com.test_real_time.R;
 
-public class ScoreActivity extends AppCompatActivity {
-    private int correct_answer;
-    private int user_answer;
+public class QuizScoreActivity extends AppCompatActivity {
+
     private int user_score;
+    private int user_time;
     private boolean shouldPlay=false;
     private Intent svc;
     private UserScore total_score = UserScore.getInstance();
@@ -30,18 +32,17 @@ public class ScoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_score);
-        user_answer=getIntent().getIntExtra("user_answer",0);
-        correct_answer=getIntent().getIntExtra("correct_answer",0);
+        setContentView(R.layout.activity_quiz_score);
+        //user_answer=getIntent().getIntExtra("user_answer",0);
+        //correct_answer=getIntent().getIntExtra("correct_answer",0);
         user_score=getIntent().getIntExtra("question_score",0);
+        user_time=getIntent().getIntExtra("question_time",0);
         TextView userScoreTv = findViewById(R.id.userScore_tv);
         userScoreTv.setText(Integer.toString(user_score));
 
-        TextView userAnswerTv = findViewById(R.id.userAnswer_TV);
-        userAnswerTv.setText(Integer.toString(user_answer));
+        TextView question_time = findViewById(R.id.question_time);
+        question_time.setText(Integer.toString(user_time));
 
-        TextView correctAnswerTv = findViewById(R.id.correctAnswer_tv);
-        correctAnswerTv.setText(Integer.toString(correct_answer));
 
         handler.updateUserScore(user_score);
 

@@ -2,6 +2,7 @@ package inducesmile.com.test_real_time.Multiplayer;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -143,22 +144,22 @@ public class MultiplayerScoreActivity extends AppCompatActivity {
             int playerScore = ((Map.Entry<String, Integer>) e).getValue();
             TableRow row = new TableRow(this);
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-
-
             TextView nomeJogador = new TextView(this);
-            nomeJogador.setTextColor(Color.WHITE);
+
+
+            nomeJogador.setTextColor(getResources().getColor(R.color.colorPrimary));
             nomeJogador.setText(usernames.get(playerID));
             nomeJogador.setPadding(dpAsPixels(16),dpAsPixels(5),0,0);
 
 
             TextView scoreJogador = new TextView(this);
             scoreJogador.setText(Integer.toString(playerScore));
-            scoreJogador.setTextColor(Color.WHITE);
+            scoreJogador.setTextColor(getResources().getColor(R.color.colorPrimary));
             scoreJogador.setPadding(dpAsPixels(16),dpAsPixels(5),0,0);
 
             TextView respostaJogador = new TextView(this);
             respostaJogador.setText(Integer.toString(answers.get(playerID)));
-            respostaJogador.setTextColor(Color.WHITE);
+            respostaJogador.setTextColor(getResources().getColor(R.color.colorPrimary));
             respostaJogador.setPadding(dpAsPixels(16),dpAsPixels(5),0,0);
 
             row.addView(nomeJogador);

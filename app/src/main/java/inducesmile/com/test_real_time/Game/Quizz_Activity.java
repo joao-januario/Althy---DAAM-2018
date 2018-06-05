@@ -3,6 +3,7 @@ package inducesmile.com.test_real_time.Game;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,8 @@ public class Quizz_Activity extends AppCompatActivity {
     private Button option_b;
     private Button option_c;
     private Button option_d;
+    private  long time;
+    private long max_timer=20000;
 
 
     @Override
@@ -95,16 +98,17 @@ public class Quizz_Activity extends AppCompatActivity {
             }
         });
 
-                timer = new CountDownTimer(20000,1000){
-            TextView timer_tv = findViewById(R.id.timer_tv);
+                timer = new CountDownTimer(max_timer,1000){
+             TextView timer_tv = findViewById(R.id.timer_tv);
             @Override
             public void onTick(long l) {
+                time=l;
                 timer_tv.setText(""+l/1000);
             }
 
             @Override
             public void onFinish() {
-                nextScreen();
+                nextScreen(right_answer, final_answer);
             }
         }.start();
 
@@ -152,7 +156,7 @@ public class Quizz_Activity extends AppCompatActivity {
 
 
 
-    public synchronized void nextScreen(){
+    public synchronized void nextScreen(final String correct_answer, final String user_answer){
 
         if (single_or_multi==1){
             multiplayerHandler.nextQuestion();
@@ -171,7 +175,15 @@ public class Quizz_Activity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Intent intent = new Intent(Quizz_Activity.this,ScoreActivity.class);
+
+
+                Intent intent = new Intent(Quizz_Activity.this,QuizScoreActivity.class);
+
+
+
+                intent.putExtra("question_score",calculateScore(correct_answer, user_answer));
+                intent.putExtra("question_time",((int)max_timer/1000)-(int)time/1000);
+
                 startActivity(intent);
 
                 finish();
@@ -198,6 +210,15 @@ public class Quizz_Activity extends AppCompatActivity {
 
                 if(!user_answer.equals(correct_answer)){
                     option_btn.setBackgroundResource((R.drawable.button_wrong_red_round));
+                    if(option_a.getText().toString().equals(correct_answer)){
+                        option_a.setBackgroundResource((R.drawable.button_correct_green_round));
+                    }if(option_b.getText().toString().equals(correct_answer)){
+                        option_b.setBackgroundResource((R.drawable.button_correct_green_round));
+                    }if(option_c.getText().toString().equals(correct_answer)){
+                        option_c.setBackgroundResource((R.drawable.button_correct_green_round));
+                    }if(option_d.getText().toString().equals(correct_answer)){
+                        option_d.setBackgroundResource((R.drawable.button_correct_green_round));
+                    }
                 }
             }
         }.start();
@@ -218,6 +239,9 @@ public class Quizz_Activity extends AppCompatActivity {
     }
 
     private void clickerCode(Button button){
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.selection_1);
+        mp.start();
+        final_answer=button.getText().toString();
         timer.cancel();
         button.setBackgroundResource((R.drawable.button_selected_yellow_round));
         // if(option_c.getText().toString().equals(right_answer)){
@@ -234,23 +258,20 @@ public class Quizz_Activity extends AppCompatActivity {
             }
         }).start();
         checkAnswer(button.getText().toString(), right_answer, button);
-        nextScreen();
+        nextScreen(right_answer, final_answer);
     }
-/*
-    private int calculateScore(int correct_answer,int user_answer){
-        if (correct_answer<0){
+
+    private int calculateScore(String correct_answer,String user_answer){
+        if (!correct_answer.equals(user_answer)){
             return 0;
         }
         else{
-            if (correct_answer/user_answer<1){
-                double i = (double) correct_answer/(double ) user_answer;
-                return (int) Math.round(i *score_modifier);
-            }else{
-                double i = (double) correct_answer/(double)user_answer;
-                return (int) Math.round((double) score_modifier/(double) i);
-            }
+            double s = (double)(((double)time)/((double)max_timer));
+            Log.d("TAGI", Double.toString(s));
+            return (int)(s * 10);
+
 
         }
     }
-*/
+
 }

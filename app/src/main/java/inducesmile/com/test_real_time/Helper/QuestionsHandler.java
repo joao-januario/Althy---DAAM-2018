@@ -16,6 +16,8 @@ public class QuestionsHandler {
     private int totalNumberOfQuestions =0;
     ArrayList<Question> questions = new ArrayList<>();
     int currentQuestion =0;
+    private UserScore total_score = UserScore.getInstance();
+
     private QuestionsHandler(){
 
     }
@@ -52,6 +54,7 @@ public class QuestionsHandler {
 
     public void updateUserScore(int questionScore){
         user_score+=questionScore;
+        total_score.setTotal_score(questionScore);
     }
 
     public int getUserScore(){

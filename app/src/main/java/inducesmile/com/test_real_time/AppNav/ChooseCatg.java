@@ -14,6 +14,7 @@ import com.google.android.gms.games.Games;
 
 import inducesmile.com.test_real_time.Helper.BackgroundSoundService;
 import inducesmile.com.test_real_time.Helper.LoadingScreenSingleplayerActivity;
+import inducesmile.com.test_real_time.Helper.UserScore;
 import inducesmile.com.test_real_time.R;
 
 public class ChooseCatg extends AppCompatActivity {
@@ -32,6 +33,7 @@ public class ChooseCatg extends AppCompatActivity {
     public BackgroundSoundService music;
     public Intent svc;
     private boolean shouldPlay = false;
+    private UserScore total_score = UserScore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +145,8 @@ public class ChooseCatg extends AppCompatActivity {
         int categories = checkCategories();
         intent.putExtra("categories",categories);
         shouldPlay = true;
+        total_score.clear_score();
+
         startActivity(intent);
 
         finish();

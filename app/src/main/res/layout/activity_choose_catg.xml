@@ -115,6 +115,7 @@
         android:textSize="40sp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
+        android:gravity="center"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"

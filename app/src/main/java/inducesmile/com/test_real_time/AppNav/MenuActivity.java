@@ -33,7 +33,7 @@ public class MenuActivity extends AppCompatActivity {
     public Button solo_btn;
     public Button random_btn;
     public Button help_btn;
-    public ToggleButton mute_btn;
+    //public ToggleButton mute_btn;
     GoogleSignInAccount signedInAccount;
     public Intent svc;
     private boolean shouldPlay = false;
@@ -68,7 +68,7 @@ public class MenuActivity extends AppCompatActivity {
         //MUSICA!
         //shouldPlay = true;
 
-        mute_btn=findViewById(R.id.mute_btn);
+        //mute_btn=findViewById(R.id.mute_btn);
         svc=new Intent(this, BackgroundSoundService.class);
         startService(svc);
 
@@ -99,13 +99,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        mute_btn.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                //shouldPlay = true;
-                toggleMute( svc, mute_btn);
 
-            }
-        });
 
 
 
@@ -114,12 +108,12 @@ public class MenuActivity extends AppCompatActivity {
     private void toggleMute(Intent svc, ToggleButton button) {
 
         if(shouldPlay==true){
-            mute_btn.setBackgroundResource(R.drawable.sound_off_icon);
+
             stopService(svc);
             shouldPlay=false;
             return;
         }if(shouldPlay==false){
-            mute_btn.setBackgroundResource(R.drawable.sound_on_icon);
+
             startService(svc);
             shouldPlay=true;
             return;
