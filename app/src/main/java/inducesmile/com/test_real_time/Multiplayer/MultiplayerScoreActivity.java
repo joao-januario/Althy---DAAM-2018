@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -18,8 +20,6 @@ import com.google.android.gms.games.Games;
 import com.google.android.gms.games.RealTimeMultiplayerClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +39,7 @@ public class MultiplayerScoreActivity extends AppCompatActivity {
     HashMap<String,Integer> question_score_helper = new HashMap<>();
     HashMap<String,Integer> question_score = new HashMap<>();
     MultiplayerQuestionHandler mhandler = MultiplayerQuestionHandler.getInstance();
+    Typeface font;
 
     int correct_answer = 0;
     @Override
@@ -52,7 +53,8 @@ public class MultiplayerScoreActivity extends AppCompatActivity {
         waitForEveryoneReadyForNextRound();
         TextView correctAnswer = findViewById(R.id.correct_answer_mp_tv);
         correctAnswer.setText(Integer.toString(correct_answer));
-        correctAnswer.setTextColor(Color.WHITE);
+        font = Typeface.createFromAsset( MultiplayerScoreActivity.this.getAssets(), "fonts/annieuseyourtelescope_file.ttf");
+        //correctAnswer.setTextColor(Color.WHITE);
 
 
     }
@@ -130,6 +132,7 @@ public class MultiplayerScoreActivity extends AppCompatActivity {
         //To do
 
         TableLayout tl = findViewById(R.id.score_table);
+        Typeface font2 = Typeface.createFromAsset( MultiplayerScoreActivity.this.getAssets(), "fonts/annieuseyourtelescope_file.ttf");
 
         Object[] a = question_score.entrySet().toArray();
         Arrays.sort(a, new Comparator() {
@@ -146,26 +149,31 @@ public class MultiplayerScoreActivity extends AppCompatActivity {
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             TextView nomeJogador = new TextView(this);
 
-
+            nomeJogador.setTypeface(font2);
             nomeJogador.setTextColor(getResources().getColor(R.color.colorPrimary));
             nomeJogador.setText(usernames.get(playerID));
-            nomeJogador.setPadding(dpAsPixels(16),dpAsPixels(5),0,0);
-
+            nomeJogador.setPadding(dpAsPixels(1),dpAsPixels(5),dpAsPixels(0),0);
+            nomeJogador.setGravity(Gravity.LEFT);
 
             TextView scoreJogador = new TextView(this);
             scoreJogador.setText(Integer.toString(playerScore));
             scoreJogador.setTextColor(getResources().getColor(R.color.colorPrimary));
-            scoreJogador.setPadding(dpAsPixels(16),dpAsPixels(5),0,0);
+            scoreJogador.setPadding(dpAsPixels(16),dpAsPixels(5),dpAsPixels(0),0);
+            scoreJogador.setTypeface(font2);
+            scoreJogador.setGravity(Gravity.CENTER);
 
             TextView respostaJogador = new TextView(this);
             respostaJogador.setText(Integer.toString(answers.get(playerID)));
             respostaJogador.setTextColor(getResources().getColor(R.color.colorPrimary));
-            respostaJogador.setPadding(dpAsPixels(16),dpAsPixels(5),0,0);
+            respostaJogador.setPadding(dpAsPixels(16),dpAsPixels(5),dpAsPixels(0),0);
+            respostaJogador.setTypeface(font2);
+            respostaJogador.setGravity(Gravity.CENTER);
 
+            row.setGravity(Gravity.CENTER);
             row.addView(nomeJogador);
             row.addView(scoreJogador);
             row.addView(respostaJogador);
-            tl.addView(row, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            tl.addView(row, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
 
 
             roomConfigLocal.addPlayerScore(playerID,playerScore);
