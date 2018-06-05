@@ -42,6 +42,8 @@ public class Quizz_Activity extends AppCompatActivity {
     private Button option_d;
     private  long time;
     private long max_timer=20000;
+   // public MediaPlayer tick;
+   // public MediaPlayer timer_end;
 
 
     @Override
@@ -100,10 +102,17 @@ public class Quizz_Activity extends AppCompatActivity {
 
                 timer = new CountDownTimer(max_timer,1000){
              TextView timer_tv = findViewById(R.id.timer_tv);
-            @Override
+
+
+                    @Override
             public void onTick(long l) {
-                time=l;
-                timer_tv.setText(""+l/1000);
+                 //playtick(l);
+                 time=l;
+                 timer_tv.setText(""+l/1000);
+
+
+
+
             }
 
             @Override
@@ -118,6 +127,15 @@ public class Quizz_Activity extends AppCompatActivity {
         stopService(svc);
         //pausar a musica
 
+    }
+
+    private void playtick(long l) {
+        MediaPlayer tick = MediaPlayer.create(Quizz_Activity.this, R.raw.click);
+        MediaPlayer timer_end = MediaPlayer.create(Quizz_Activity.this, R.raw.end_timer);
+        if(l!=0)
+            tick.start();
+        else
+            timer_end.start();
     }
 
     private void fill_buttons() {
@@ -206,9 +224,14 @@ public class Quizz_Activity extends AppCompatActivity {
             public void onFinish() {
                 if(user_answer.equals(correct_answer)){
                     option_btn.setBackgroundResource((R.drawable.button_correct_green_round));
+                    MediaPlayer mp = MediaPlayer.create(Quizz_Activity.this, R.raw.correct_3);
+                    mp.start();
+
                 }
 
                 if(!user_answer.equals(correct_answer)){
+                    MediaPlayer mp = MediaPlayer.create(Quizz_Activity.this, R.raw.wrong_1);
+                    mp.start();
                     option_btn.setBackgroundResource((R.drawable.button_wrong_red_round));
                     if(option_a.getText().toString().equals(correct_answer)){
                         option_a.setBackgroundResource((R.drawable.button_correct_green_round));

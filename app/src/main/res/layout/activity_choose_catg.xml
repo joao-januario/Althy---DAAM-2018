@@ -98,29 +98,29 @@
     <TextView
         android:id="@+id/rounds_tv"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="69dp"
+        android:layout_margin="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:paddingLeft="0dp"
-        android:paddingTop="25dp"
+        android:paddingTop="0dp"
         android:shadowRadius="5"
         android:text="Quantas Perguntas?"
         android:textAllCaps="false"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#ffffff"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:fontFamily="@font/annie_use_your_telescope"
-        android:gravity="center"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/guideline_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.639" />
 
@@ -171,7 +171,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_end="192dp"
+        app:layout_constraintGuide_percent="0.5"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -181,7 +181,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_end="105dp"
+        app:layout_constraintGuide_end="81dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -227,7 +227,7 @@
         android:text="Modo de Jogo"
         android:textAllCaps="false"
         android:textColor="#ffffff"
-        android:textSize="60sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_closerWins"
         app:layout_constraintEnd_toEndOf="parent"

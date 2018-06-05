@@ -143,14 +143,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="330dp" />
+        app:layout_constraintGuide_end="49dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="55dp" />
+        app:layout_constraintGuide_begin="49dp" />
     <android.support.constraint.Guideline
         android:id="@+id/guideline_left"
         android:layout_width="wrap_content"
