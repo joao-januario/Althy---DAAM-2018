@@ -29,6 +29,7 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 901;
     private SignInButton sib;
     private GoogleSignInAccount signedInAccount;
+    private boolean opened=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,10 +111,12 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
     }
 
     private void switchToMenuActivity(){
-        Intent menu = new Intent(MultiplayerGoogleLoginActivity.this,MenuActivity.class);
-        startActivity(menu);
-        finish();
-    }
+
+            Intent menu = new Intent(MultiplayerGoogleLoginActivity.this, MenuActivity.class);
+            startActivity(menu);
+            finish();
+        }
+
 
 
 

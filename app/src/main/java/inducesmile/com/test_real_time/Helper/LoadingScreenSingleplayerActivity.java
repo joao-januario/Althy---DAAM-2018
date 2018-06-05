@@ -97,9 +97,10 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
             notifythreads();
             generateDistanceQuestions(myRef,  numberOfQuestions);
         }if (categories==0){
-            Random ran = new Random(numberOfQuestions+1);
-            int r = ran.nextInt();
-
+            notifythreads();
+            Random ran = new Random();
+            int r = ran.nextInt(numberOfQuestions+1);
+            Log.d("Random",Integer.toString(r));
             generateDistanceQuestions(myRef,  r);
                 generateQuizQuestions(myRef,  numberOfQuestions-r);
         }

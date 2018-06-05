@@ -269,7 +269,6 @@ public class RoomConfigLocal extends Question_Activity{
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-                    multiplayerHandler.newGame();
                     for(int i=0;i<questionsPicked.size();i++){
 
                         DataSnapshot question_data = dataSnapshot.child(Integer.toString(questionsPicked.get(i)));
@@ -293,7 +292,7 @@ public class RoomConfigLocal extends Question_Activity{
 
 
     public synchronized void waitForEveryoneReady(){
-        if (!readyToPlay){
+        while (!readyToPlay){
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -301,7 +300,7 @@ public class RoomConfigLocal extends Question_Activity{
             }
 
         }
-            if (playersReady.size()!= mParticipants.size()-1){
+            while (playersReady.size()!= mParticipants.size()-1){
                 try {
                     wait();
                 } catch (InterruptedException e) {
@@ -313,7 +312,7 @@ public class RoomConfigLocal extends Question_Activity{
 
     public synchronized void waitForEveryoneToAnswer(){
         Log.d("answers received", Integer.toString(answers_to_current_question.size()));
-        if (answers_to_current_question.size()!=mParticipants.size()){
+        while (answers_to_current_question.size()!=mParticipants.size()){
             try {
                 wait();
             } catch (InterruptedException e) {
