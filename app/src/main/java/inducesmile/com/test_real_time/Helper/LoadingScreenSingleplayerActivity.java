@@ -39,6 +39,10 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
         categories=getIntent().getIntExtra("categories", 4);
         generateQuestions(categories);
 
+        //transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -69,6 +73,14 @@ public class LoadingScreenSingleplayerActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
     }
 
 

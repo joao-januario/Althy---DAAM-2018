@@ -35,6 +35,7 @@ public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
     ArrayList<Integer> questions_picked= new ArrayList<Integer>();
     private final int max_questions=5;
     MultiplayerQuestionHandler multiplayerHandler = MultiplayerQuestionHandler.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,9 @@ public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
         roomConfigLocal.setMyNumberHost(myHostNumber);
 
 
+        //transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
 
         bits[0]='H';
         bits[1] = myHostNumber ;
@@ -65,6 +69,15 @@ public class LoadingScreenMultiplayerActivity extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
 
     void sendToAllReliably(byte[] message) {
         for (String participantId : roomConfigLocal.getParticipants()) {

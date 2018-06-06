@@ -40,9 +40,21 @@ public class RandomPlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random_play_activty);
 
+        //transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
 
         startQuickGame();
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
 
     RoomConfigLocal roomConfigLocal = RoomConfigLocal.getInstance();
     ArrayList<Participant> mParticipants = null;

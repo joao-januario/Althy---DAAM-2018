@@ -51,8 +51,10 @@ public class Quizz_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
 
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
 
-//Singleplayer = 0 e Multiplayer = 1
+        //Singleplayer = 0 e Multiplayer = 1
         single_or_multi=getIntent().getIntExtra("Mode",0);
         textV_question=findViewById(R.id.question_tv);
         option_a=findViewById(R.id.option_a_btn);
@@ -71,6 +73,10 @@ public class Quizz_Activity extends AppCompatActivity {
         right_answer=handler.getCurrentQuestionAnswer();
         fill_buttons();
         //respostas
+
+        //Transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
 
         //check answer
 
@@ -127,6 +133,13 @@ public class Quizz_Activity extends AppCompatActivity {
         stopService(svc);
         //pausar a musica
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
     }
 
     private void playtick(long l) {
@@ -188,7 +201,7 @@ public class Quizz_Activity extends AppCompatActivity {
             public void run() {
                     verifyScreen();
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

@@ -46,6 +46,11 @@ public class MultiplayerScoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multiplayer_score);
+
+        //transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
+
         answers = roomConfigLocal.getAllAnswersToCurrentQuestion();
         correct_answer = getIntent().getIntExtra("correct answer",0);
         calculateScores();
@@ -54,10 +59,22 @@ public class MultiplayerScoreActivity extends AppCompatActivity {
         TextView correctAnswer = findViewById(R.id.correct_answer_mp_tv);
         correctAnswer.setText(Integer.toString(correct_answer));
         font = Typeface.createFromAsset( MultiplayerScoreActivity.this.getAssets(), "fonts/annieuseyourtelescope_file.ttf");
+
+
+
         //correctAnswer.setTextColor(Color.WHITE);
 
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
 
     private void calculateScores(){
 

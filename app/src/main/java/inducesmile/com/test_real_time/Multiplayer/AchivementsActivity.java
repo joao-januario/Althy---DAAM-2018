@@ -17,6 +17,9 @@ public class AchivementsActivity extends AppCompatActivity {
 int open_intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_with_friends);
         open_intent=getIntent().getIntExtra("Mode",0);
@@ -25,7 +28,18 @@ int open_intent;
         else{
             backToMenu();
         }
+
+
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
 
     private static final int RC_ACHIEVEMENT_UI = 9003;
 

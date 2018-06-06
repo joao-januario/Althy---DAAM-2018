@@ -56,6 +56,10 @@ public class Question_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_question_);
 
 
+        //transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
+
 //Singleplayer = 0 e Multiplayer = 1
         single_or_multi=getIntent().getIntExtra("Mode",0);
         textV_question=findViewById(R.id.question_tv);
@@ -129,6 +133,13 @@ public class Question_Activity extends AppCompatActivity {
         timer.cancel();
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
     }
 
   /*  @Override

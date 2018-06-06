@@ -57,6 +57,8 @@ public class SplashScreen_Activity extends AppCompatActivity {
 
     }
 
+
+
     private void jump()
     {
 

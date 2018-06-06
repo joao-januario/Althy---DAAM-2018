@@ -41,6 +41,10 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
 
         }
 
+        //transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
+
         sib.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 switch (v.getId()) {
@@ -53,6 +57,14 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
 
     private boolean isSignedIn() {
         return GoogleSignIn.getLastSignedInAccount(this) != null;
@@ -114,8 +126,7 @@ public class MultiplayerGoogleLoginActivity extends AppCompatActivity {
 
             Intent menu = new Intent(MultiplayerGoogleLoginActivity.this, MenuActivity.class);
             startActivity(menu);
-            finish();
-        }
+            finish();        }
 
 
 

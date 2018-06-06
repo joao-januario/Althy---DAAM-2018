@@ -49,8 +49,19 @@ public class QuizScoreActivity extends AppCompatActivity {
         TextView userTotalScoreTv = findViewById(R.id.totalScore_tv);
         userTotalScoreTv.setText(Integer.toString(total_score.getTotal_score()));
 
+        //Transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
+
         //MUSICA!
         svc=new Intent(this, BackgroundSoundService.class);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
     }
 
     //O more questions verifica se o utilizador está na ultima pergunta ou não, se estiver volta ao menu principal, se n carrega a proxima pergunta

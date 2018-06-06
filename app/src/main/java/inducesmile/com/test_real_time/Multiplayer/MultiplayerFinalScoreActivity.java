@@ -35,10 +35,21 @@ public class MultiplayerFinalScoreActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
     private void organizeFinalScores(){
         Object[] a = finalScores.entrySet().toArray();
         Typeface font2 = Typeface.createFromAsset( MultiplayerFinalScoreActivity.this.getAssets(), "fonts/annieuseyourtelescope_file.ttf");
 
+        //transition
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
 
         Arrays.sort(a, new Comparator() {
             public int compare(Object o1, Object o2) {
